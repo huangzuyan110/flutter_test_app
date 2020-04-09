@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
+import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
+import 'package:flutter_test_app/pages/input_number_page.dart';
+import 'package:flutter_test_app/pages/stepper_page.dart';
 
 import 'common/scaffold_page.dart';
 import 'pages/animation_page.dart';
@@ -60,6 +64,40 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                 }, 
                 color: Colors.blue,
                 child: Text('跳转到左滑出现删除页面'),
+              ),
+            ),
+            // 跳转到步骤条页面
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>StepperPage()));
+                },
+                child: Text('跳转到重写flutter自带步骤条页面'),
+              ),
+            ),
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>CustomStepperNewPage()));
+                },
+                child: Text('跳转到固定高度自定义步骤条页面'),
+              ),
+            ),
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>AutoHeightStepperPage()));
+                },
+                child: Text('跳转到不固定高度自定义步骤条页面'),
+              ),
+            ),
+            // 跳转到输入邀请码交互
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>InputNumberPage()));
+                },
+                child: Text('跳转到输入邀请码交互页面'),
               ),
             )
           ],
