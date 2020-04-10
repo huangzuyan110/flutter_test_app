@@ -29,7 +29,7 @@ class _AutoHeightStepperPageState extends State<AutoHeightStepperPage> {
                   Expanded(child: Container(
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
-                      '天天乐超市（限时降价）已取货',
+                      '天天乐超市（限时降价）已签收',
                       style: TextStyle(fontSize: 18),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -48,7 +48,7 @@ class _AutoHeightStepperPageState extends State<AutoHeightStepperPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('配送员：吴立亮 18888888888'),
+                    Text('配送员：吴立亮 18888887777'),
                     Text('时间：2018-12-17 09:55:22'),
                     Text('由于天气原因无法准时到达, 如有疑惑请电联。由于天气原因无法准时到达, 如有疑惑请电联。由于天气原因无法准时到达, 如有疑惑请电联。由于天气原因无法准时到达, 如有疑惑请电联。'),
                   ],
@@ -69,7 +69,7 @@ class _AutoHeightStepperPageState extends State<AutoHeightStepperPage> {
                   Expanded(child: Container(
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
-                      '天天乐超市（限时降价）已取货',
+                      '天天乐超市（限时降价）派送中',
                       style: TextStyle(fontSize: 18),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -89,7 +89,7 @@ class _AutoHeightStepperPageState extends State<AutoHeightStepperPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('配送员：吴立亮 18888888888'),
-                    Text('时间：2018-12-17 09:55:22')
+                    Text('时间：2018-12-16 09:55:22')
                   ],
                 ),
               )
@@ -127,8 +127,8 @@ class _AutoHeightStepperPageState extends State<AutoHeightStepperPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('配送员：吴立亮 18888888888'),
-                    Text('时间：2018-12-17 09:55:22')
+                    Text('配送员：吴立亮 18888889999'),
+                    Text('时间：2018-12-15 09:55:22')
                   ],
                 ),
               )
@@ -174,17 +174,23 @@ class LeftLinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     double lineWidth = 2;
     double centerX = size.width / 2;
+    // 圆圈上面的线（显示灰色还是红色）
     Paint linePain = Paint();
     linePain.color = showTop ? Colors.grey : Colors.transparent;
     linePain.strokeWidth = lineWidth;
     linePain.strokeCap = StrokeCap.square;
+    // 将线画在画板上
     canvas.drawLine(Offset(centerX, 0), Offset(centerX, _topHeight), linePain);
+    // 圆圈
     Paint circlePaint = Paint();
     circlePaint.color = isLight ? _lightColor : _normalColor;
     circlePaint.style = PaintingStyle.fill;
+    // 圆圈下面的先显示灰色还是红色
     linePain.color = showBottom ? Colors.grey : Colors.transparent;
+    // 将线画在画板上
     canvas.drawLine(
         Offset(centerX, _topHeight), Offset(centerX, size.height), linePain);
+    // 将圆圈画在画板上
     canvas.drawCircle(Offset(centerX, _topHeight), centerX, circlePaint);
   }
 
