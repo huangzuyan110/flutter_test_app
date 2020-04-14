@@ -22,6 +22,9 @@ pubspec.lock
 # is commented out by default.
 #.vscode/
 
+# Visual Studio Code related
+.vscode/
+
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
