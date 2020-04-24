@@ -104,6 +104,7 @@ class BottomWavyClipper extends CustomClipper<Path> {
     print('绘制路径secondControlPoint===$secondControlPoint');
     print('绘制路径thirdControlPoint===$thirdControlPoint');
 
+    // 形成曲线
     path.cubicTo(firstControlPoint.dx, firstControlPoint.dy,
         secondControlPoint.dx, secondControlPoint.dy, thirdControlPoint.dx, thirdControlPoint.dy);
 
