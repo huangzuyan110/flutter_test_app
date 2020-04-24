@@ -97,15 +97,23 @@ class BottomWavyClipper extends CustomClipper<Path> {
     // 第2个点，左下角
     path.lineTo(0, size.height - diffHeight);
     // 路径第一个开始控制点 Offset(size.width / 2, size.height） size.width/2 : Container容器宽度中心，size.height： Container容器高度
-    Offset firstControlPoint = Offset(size.width / 2, size.height);
-    // 路径第一个结束控制点 Offset(size.width, size.height - diffHeight)： 以容器宽度为x，（容器高度-diffHeight）为y轴作为结束控制点
-    Offset secondControlPoint = Offset(300, size.height - diffHeight-20);
-    Offset thirdControlPoint = Offset(size.width, size.height - diffHeight);
+    Offset firstControlPoint = Offset(80, size.height);
+    Offset secondControlPoint = Offset(100, size.height - diffHeight-20);
+    Offset thirdControlPoint = Offset(200, size.height - diffHeight);
     print('绘制路径firstControlPoint===$firstControlPoint');
     print('绘制路径secondControlPoint===$secondControlPoint');
     print('绘制路径thirdControlPoint===$thirdControlPoint');
+
     path.cubicTo(firstControlPoint.dx, firstControlPoint.dy,
         secondControlPoint.dx, secondControlPoint.dy, thirdControlPoint.dx, thirdControlPoint.dy);
+
+    Offset firstControlPoint2 = Offset(size.width / 2+50, size.height);
+    Offset secondControlPoint2 = Offset(300, size.height - diffHeight-20);
+    Offset thirdControlPoint2 = Offset(size.width, size.height - diffHeight);
+
+    path.cubicTo(firstControlPoint2.dx, firstControlPoint2.dy,
+        secondControlPoint2.dx, secondControlPoint2.dy, thirdControlPoint2.dx, thirdControlPoint2.dy);
+
     // 第3个点, 右下角
     path.lineTo(size.width, size.height - diffHeight);
     // 第4个点， 右上角
