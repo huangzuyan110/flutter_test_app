@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'common/scaffold_page.dart';
@@ -10,6 +11,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+    
   List list = [
     {'id': 1, 'content': '商品1'},
     {'id': 2, 'content': '商品2'},
@@ -39,7 +41,7 @@ class _CartPageState extends State<CartPage> {
   _showSnack(BuildContext context, type) {
     print(type);
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
@@ -50,6 +52,7 @@ class _CartPageState extends State<CartPage> {
         child: ListView.builder(
           itemCount: list.length,
           itemBuilder: (context, index) {
+            TextEditingController _inputController = new TextEditingController();
             return Slidable(
               key: Key(index.toString()),
               controller: slidableController,
@@ -102,6 +105,25 @@ class _CartPageState extends State<CartPage> {
                   ),
                   title: Text('${list[index]['content']}'),
                   subtitle: Text('SlidableDrawerDelegate'),
+                  trailing: Container(
+                    width: 110,
+                    child: TextField(
+                      // keyboardType: TextInputType.number,
+                      controller: _inputController,
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter.digitsOnly, //只输入数字
+                      ],
+                      decoration: InputDecoration(
+                        hintText: '请输入数字',
+                        hintStyle: TextStyle(color: Colors.grey, fontSize: 14.0),
+                        border: OutlineInputBorder()
+                      ),
+                      onChanged: (value) {
+                        debugPrint('当前输入框值：$value');
+                        debugPrint('当前输入框值_inputController.text：${_inputController.text}');
+                      },
+                    ),
+                  ),
                 ),
               ),
               // actions: <Widget>[
@@ -143,3 +165,4 @@ class _CartPageState extends State<CartPage> {
     );
   }
 }
+  

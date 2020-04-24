@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
+import 'package:flutter_test_app/pages/input_expand_page.dart';
 import 'package:flutter_test_app/pages/input_number_page.dart';
 import 'package:flutter_test_app/pages/logistics_information_page.dart';
+import 'package:flutter_test_app/pages/paint_page.dart';
 import 'package:flutter_test_app/pages/stepper_page.dart';
 import 'common/scaffold_page.dart';
 import 'pages/animation_page.dart';
@@ -107,6 +109,24 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>LogisticsInformationPage()));
                 },
                 child: Text('跳转到物流详情页面'),
+              ),
+            ),
+            // 跳转到输入框页面
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>InputExpandPage()));
+                },
+                child: Text('跳转到输入框expand为true属性页面'),
+              ),
+            ),
+            // 跳转到画路径页面
+            Container(
+              child: OutlineButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>PaintPage()));
+                },
+                child: Text('跳转到画路径paint页面'),
               ),
             ),
           ],
