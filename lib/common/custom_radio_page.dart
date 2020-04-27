@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
  */
 
 class CustomRadioPage extends StatefulWidget {
-  CustomRadioPage({Key key, @required this.radioValue}) : super(key: key);
+  CustomRadioPage({Key key, @required this.radioValue, @required this.onChangeRadioValue}) : super(key: key);
   // 当前选中的按钮的值
   final String radioValue;
+  // 改变单选框选择的值时，父组件执行方法
+  final Function onChangeRadioValue;
 
   @override
   _CustomRadioPageState createState() => _CustomRadioPageState();
@@ -24,6 +26,16 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
     _newValue = widget.radioValue;
   }
 
+  // 单选框发生改变
+  void _changeRadioValue(String value){
+    debugPrint('点击了单选框。。。。。。');
+    setState(() {
+      _newValue = value;
+    });
+    // 更新父级元素里面对应的选中变量的值
+    widget.onChangeRadioValue(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +43,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
     );
   }
 
-    // 每个选项独占一行的单选框
+  // 每个选项独占一行的单选框
   Column _rowsRadioWidget() {
     return Column(
       children: <Widget>[
@@ -41,9 +53,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           groupValue: _newValue,
           onChanged: (value) {
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           },
         ),
         RadioListTile<String>(
@@ -52,9 +62,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           groupValue: _newValue,
           onChanged: (value) {
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           },
         ),
         RadioListTile<String>(
@@ -63,9 +71,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           groupValue: _newValue,
           onChanged: (value) {
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           },
         ),
       ],
@@ -83,9 +89,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
             activeColor: Colors.red,
             groupValue: _newValue,
             onChanged: (value) {
-              setState(() {
-                _newValue = value;
-              });
+              _changeRadioValue(value);
             },
           ),
         ),
@@ -96,9 +100,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
             activeColor: Colors.red,
             groupValue: _newValue,
             onChanged: (value) {
-              setState(() {
-                _newValue = value;
-              });
+              _changeRadioValue(value);
             },
           ),
         ),
@@ -109,9 +111,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
             activeColor: Colors.red,
             groupValue: _newValue,
             onChanged: (value) {
-              setState(() {
-                _newValue = value;
-              });
+              _changeRadioValue(value);
             },
           ),
         ),
@@ -129,9 +129,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           onChanged: (value) {
             print('点击语文===$value');
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           }),
         Radio<String>(
           value: "数学",
@@ -139,9 +137,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           onChanged: (value) {
             print('点击数学===$value');
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           }),
         Radio<String>(
           value: "英语",
@@ -149,9 +145,7 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
           activeColor: Colors.red,
           onChanged: (value) {
             print('点击英语===$value');
-            setState(() {
-              _newValue = value;
-            });
+            _changeRadioValue(value);
           }),
       ],
     );

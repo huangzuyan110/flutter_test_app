@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test_app/common/custom_radio_page.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
 import 'package:flutter_test_app/util/throttle.dart';
@@ -31,10 +32,10 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
   final TextEditingController _passwordController = new TextEditingController();
   // 防抖动
   final Throttling throttling =  Throttling();
+  String _checkedRadioValue = '英语';
 
   // 多次点击对象
   MultipleClickObject clickObject = MultipleClickObject(6, 1000);
-  String _newValue = '数学';
 
   final List<Widget> aboutBoxChildren = <Widget>[
     SizedBox(height: 24),
@@ -109,8 +110,32 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
 
       // 多次点击弹出输入密码确认框弹窗
       _confirmDialog(mContext);
-     
+    }
+  }
 
+
+  // 环境设置弹框取消按钮回调
+  void _passwordCancleBtnCallBack(){
+    _passwordController.text = '';
+    // 关闭弹窗
+    Navigator.pop(context);
+  }
+
+  // 环境设置弹框确定按钮回调
+  void _passwordConfirmBtnCallBack(){
+    debugPrint('输入密码===${_passwordController.text}');
+    if(!stringIsNotEmpty(_passwordController.text)){
+      showInfo(context, '请输入密码');
+      return;
+    }
+    if(_passwordController.text == clickObject.password){
+      debugPrint('密码匹配成功');
+      _passwordController.text = '';
+      // 关闭弹窗
+      Navigator.pop(context);
+      _settingDialog(context);
+    }else{
+      showInfo(context, '密码输入有误，请重新输入');
     }
   }
 
@@ -143,11 +168,11 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: _customMaterialButton('取消', false, textColor: Color(0xFFF43333), bgColor: Color(0xffffffff)),
+                          child: _customMaterialButton(_passwordCancleBtnCallBack, '取消', false, textColor: Color(0xFFF43333), bgColor: Color(0xffffffff)),
                         ),
                         SizedBox(width: 8,),
                         Expanded(
-                          child: _customMaterialButton('确定', true, textColor: Color(0xffffffff), bgColor: Color(0xFFF43333)),
+                          child: _customMaterialButton(_passwordConfirmBtnCallBack, '确定', true, textColor: Color(0xffffffff), bgColor: Color(0xFFF43333)),
                         ),
                       ],
                     ),
@@ -162,7 +187,7 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
   }
 
   // 按钮 btnText:按钮文本  isComfirm: 是否是点击了确定 textColor: 按钮文本的颜色 bgColor:按钮的背景色
-  MaterialButton _customMaterialButton(String btnText, bool isComfirm, {Color textColor, Color bgColor}) {
+  MaterialButton _customMaterialButton(Function callback,String btnText, bool isComfirm, {Color textColor, Color bgColor}) {
     return MaterialButton(
       child: Text(
         '$btnText',
@@ -178,26 +203,7 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
       disabledElevation: 0,
       onPressed: () {
         throttling.throttle((){
-          debugPrint('输入密码===${_passwordController.text}');
-          if(isComfirm){
-            if(!stringIsNotEmpty(_passwordController.text)){
-              showInfo(context, '请输入密码');
-              return;
-            }
-            if(_passwordController.text == clickObject.password){
-              debugPrint('密码匹配成功');
-              _passwordController.text = '';
-              // 关闭弹窗
-              Navigator.pop(context);
-              _settingDialog(context);
-            }else{
-              showInfo(context, '密码输入有误，请重新输入');
-            }
-          }else{
-            _passwordController.text = '';
-            // 关闭弹窗
-            Navigator.pop(context);
-          }
+          if(callback!=null) callback();
         });
       },
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -209,10 +215,26 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
     );
   }
 
+  // 环境设置弹框取消按钮回调
+  void _settingCancleBtnCallBack(){
+    // 关闭弹窗
+    Navigator.of(context).pop();
+  }
+
+  // 环境设置弹框确定按钮回调
+  void _settingConfirmBtnCallBack(){
+    debugPrint('环境配置页面点击了确定按钮');
+  }
+
+  // 单选框发生改变
+  void _onChangeRadioValue(String value){
+    _checkedRadioValue = value;
+    debugPrint('父组件监听到子组件的单选框发生改变，_checkedRadioValue对应值====$_checkedRadioValue');
+  }
+
   // 环境配置弹框
   void _settingDialog(BuildContext mcontext){
     debugPrint('进入环境配置弹框方法。。。');
-    
     showDialog(
       context: mcontext,
       builder: (BuildContext context) {
@@ -229,7 +251,7 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  CustomRadioPage(radioValue: '数学'),
+                  CustomRadioPage(radioValue: _checkedRadioValue, onChangeRadioValue: _onChangeRadioValue),
                   Container(
                     padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -240,11 +262,11 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: _customMaterialButton('取消', false, textColor: Color(0xFFF43333), bgColor: Color(0xffffffff)),
+                          child: _customMaterialButton(_settingCancleBtnCallBack, '取消', false, textColor: Color(0xFFF43333), bgColor: Color(0xffffffff)),
                         ),
                         SizedBox(width: 8,),
                         Expanded(
-                          child: _customMaterialButton('确定', true, textColor: Color(0xffffffff), bgColor: Color(0xFFF43333)),
+                          child: _customMaterialButton(_settingConfirmBtnCallBack, '确定', true, textColor: Color(0xffffffff), bgColor: Color(0xFFF43333)),
                         ),
                       ],
                     ),
@@ -263,7 +285,7 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
       child: TextField(
-        autofocus: false,
+        autofocus: true,
         maxLines: 1,
         style: TextStyle(
           color: Color(0xFF060918),
@@ -275,6 +297,9 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
         onChanged: (text) {
         },
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(20) //限制长度
+        ],
         decoration: InputDecoration(
           contentPadding:EdgeInsets.all(0),
           hintText: hintText,
