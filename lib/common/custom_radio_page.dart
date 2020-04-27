@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_test_app/common/test_globalkey_page.dart';
 /* 
   注意此时的选择框必须是直接输入StatefulWidget下才能动态的更新选中状态的UI，如果有一个弹框里面包含了选择框，那么此时更换选中项是无法动态的更新UI
  */
 
 class CustomRadioPage extends StatefulWidget {
-  CustomRadioPage({Key key, @required this.radioValue, @required this.onChangeRadioValue}) : super(key: key);
+  CustomRadioPage({Key key, @required this.radioValue, this.onChangeRadioValue, this.floatKey}) : super(key: key);
   // 当前选中的按钮的值
   final String radioValue;
-  // 改变单选框选择的值时，父组件执行方法
+  // 方法一： 改变单选框选择的值时，父组件执行方法
   final Function onChangeRadioValue;
+  // 方法二： 通过父级传递过来的globalKey去控制单选框选择改变的执行
+  final GlobalKey<TestGlobalKeyPageState> floatKey;
 
   @override
   _CustomRadioPageState createState() => _CustomRadioPageState();
@@ -33,7 +35,14 @@ class _CustomRadioPageState extends State<CustomRadioPage> {
       _newValue = value;
     });
     // 更新父级元素里面对应的选中变量的值
-    widget.onChangeRadioValue(value);
+    if(widget.onChangeRadioValue!=null){
+      debugPrint('执行父组件回调函数onChangeRadioValue。。。。');
+      widget.onChangeRadioValue(value);
+    }
+    if(widget.floatKey != null){
+      // widget.floatKey.currentState.onChangeRadioValue(value);
+      widget.floatKey.currentState.testGlobalKeyFunc();
+    }
   }
 
   @override

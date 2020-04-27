@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test_app/common/custom_radio_page.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
+import 'package:flutter_test_app/common/test_globalkey_page.dart';
 import 'package:flutter_test_app/util/throttle.dart';
 import 'package:flutter_test_app/util/utils.dart';
 
@@ -24,10 +25,13 @@ class MultipleClickPage extends StatefulWidget {
   MultipleClickPage({Key key}) : super(key: key);
 
   @override
-  _MultipleClickPageState createState() => _MultipleClickPageState();
+  MultipleClickPageState createState() => MultipleClickPageState();
 }
 
-class _MultipleClickPageState extends State<MultipleClickPage>{
+class MultipleClickPageState extends State<MultipleClickPage>{
+
+  
+  GlobalKey<TestGlobalKeyPageState> floatKey = GlobalKey<TestGlobalKeyPageState>();
   // 密码输入框控制器
   final TextEditingController _passwordController = new TextEditingController();
   // 防抖动
@@ -251,7 +255,10 @@ class _MultipleClickPageState extends State<MultipleClickPage>{
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  CustomRadioPage(radioValue: _checkedRadioValue, onChangeRadioValue: _onChangeRadioValue),
+
+                  // 一定要先通过TestGlobalKeyPage实例化类，再进行floatKey传递到其他页面才能真正的拿到floatKey.currentState对象，否则该对象会为null
+                  TestGlobalKeyPage(key: floatKey),
+                  CustomRadioPage(radioValue: _checkedRadioValue, onChangeRadioValue: _onChangeRadioValue ,floatKey: floatKey),
                   Container(
                     padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
