@@ -31,6 +31,24 @@ class _PaintPageState extends State<PaintPage> {
                 height: 200,
                 color: Colors.cyan,
               )
+            ),
+            ClipPath(
+              clipper: TriangleClipper(),
+              child: Container(
+                height: 100,
+                margin: EdgeInsets.only(bottom:50),
+                color: Colors.purple,
+                // child: Text('三角形绘制'),
+              ),
+            ),
+            CustomPaint(
+              painter: TrianglePainter(Colors.red),
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                ),
+              ),
             )
             
           ],
@@ -40,7 +58,7 @@ class _PaintPageState extends State<PaintPage> {
   }
 }
 
-// 贝塞尔曲线 两个控制点 一般弧线
+// 曲线 两个控制点 一般弧线
 class BottomClipper extends CustomClipper<Path> {
   BottomClipper({this.diffHeight=20.0}) : super();
   // 曲线起始点距离底部的高度
@@ -50,7 +68,7 @@ class BottomClipper extends CustomClipper<Path> {
   @override
  
   Path getClip(Size size) {
-    print('弧线size====$size');
+    print('两个控制点容器size====$size');
     // 绘制点从左往右，从上往下
     Path path = Path();
     // 第1个点, 起始点（0，0）：左上角
@@ -80,7 +98,7 @@ class BottomClipper extends CustomClipper<Path> {
 }
 
 
-// 贝塞尔曲线 三个控制点 波浪线
+// 曲线 三个控制点 波浪线
 class BottomWavyClipper extends CustomClipper<Path> {
   BottomWavyClipper({this.diffHeight=20.0}) : super();
   // 曲线起始点距离底部的高度
@@ -89,7 +107,7 @@ class BottomWavyClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    print('弧线size====$size');
+    print('三个控制点容器size====$size');
     // 绘制点从左往右，从上往下
     Path path = Path();
     // 第1个点, 起始点（0，0）：左上角
@@ -127,6 +145,96 @@ class BottomWavyClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
+}
+
+// 三角形
+class TriangleClipper extends CustomClipper<Path> {
+  TriangleClipper({this.diffWidth=20.0}) : super();
+  // 曲线起始点距离底部的高度
+  final double diffWidth;
+
+
+  @override
+  Path getClip(Size size) {
+    print('三角形容器size====$size');
+    // 绘制点从左往右，从上往下
+    Path path = Path();
+    // 第1个点, 将起始点从左上角移动到容器中心
+    path.moveTo(size.width/2, 0);
+    path.lineTo(diffWidth, size.height);
+   
+    path.lineTo(size.width-diffWidth, size.height);
+
+    return path;
+  }
+  
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+// 绘制三角形
+class TrianglePainter extends CustomPainter {
+  
+  // 填充颜色
+  final Color color;
+  // 画笔
+  Paint _paint;
+  // 绘制路径
+  Path _path;
+  // 角度
+  double angle;
+
+  TrianglePainter(this.color){
+    _paint = Paint()
+      ..strokeWidth = 1.0 // 线宽
+      ..color = color
+      ..isAntiAlias = true;
+      _path = Path();
+  } 
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // TODO: implement paint
+    debugPrint('绘制三角形容器size===$size');
+    final baseX = size.width * 0.5;
+    final baseY = size.height * 0.5;
+    // 起点
+    _path.moveTo(baseX - 0.86 * baseX, 0.5 * baseY);
+    _path.lineTo(baseY, 1.5 * baseY);
+    _path.lineTo(baseX + 0.86 * baseX, 0.5 * baseY);
+    canvas.drawPath(_path, _paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return null;
+  }
+
+}
+
+// 绘制六边形
+class SexangleClipper extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size) {
+    // TODO: implement getClip
+    debugPrint('六边形容器的size====$size');
+    Path path = Path();
+    path.moveTo(size.width/2 - 100, 0);
+    // path.lineTo(x, y)
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return null;
+  }
+
+  
 }
 
 

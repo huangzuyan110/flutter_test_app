@@ -1,6 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+// 提示文本
+void showInfo(BuildContext context, String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.CENTER,
+    timeInSecForIos: 1,
+    backgroundColor: Color(0xCC333333),
+    textColor: Colors.white
+  );
+}
 
 Color hexToColor(String s) {
   // 如果传入的十六进制颜色值不符合要求，返回默认值
@@ -64,7 +77,7 @@ void showTipsDialog(BuildContext context, String msg) {
   );
 }
 
-void ToBangCode(BuildContext context) {
+void toBangCode(BuildContext context) {
   showCustomDialog(context);
 }
 
