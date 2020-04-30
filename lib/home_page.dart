@@ -27,8 +27,9 @@ class _HomePageState extends State<HomePage> {
                 AnimatedButton(),
                 SizedBox(height: 20,),
                 RaisedButton(
-                  onPressed: () async{
-                    _bankBranchDialog();
+                  onPressed: () {
+                    var returnResult = _addressDialog(context);
+                    print('地址选择弹框返回结果====$returnResult');
                   },
                   child: Text('弹窗选择省市区'),
                 ),
@@ -52,9 +53,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   // 选择支行弹出框
-  Future _bankBranchDialog() async{
-    return showModalBottomSheet(
-      context: context,
+  Future _addressDialog(BuildContext mContext) async{
+    return await showModalBottomSheet(
+      context: mContext,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return CommonSelectPage();

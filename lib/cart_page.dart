@@ -52,7 +52,6 @@ class _CartPageState extends State<CartPage> {
         child: ListView.builder(
           itemCount: list.length,
           itemBuilder: (context, index) {
-            TextEditingController _inputController = new TextEditingController();
             return Slidable(
               key: Key(index.toString()),
               controller: slidableController,
@@ -105,25 +104,6 @@ class _CartPageState extends State<CartPage> {
                   ),
                   title: Text('${list[index]['content']}'),
                   subtitle: Text('SlidableDrawerDelegate'),
-                  trailing: Container(
-                    width: 110,
-                    child: TextField(
-                      // keyboardType: TextInputType.number,
-                      controller: _inputController,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly, //只输入数字
-                      ],
-                      decoration: InputDecoration(
-                        hintText: '请输入数字',
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 14.0),
-                        border: OutlineInputBorder()
-                      ),
-                      onChanged: (value) {
-                        debugPrint('当前输入框值：$value');
-                        debugPrint('当前输入框值_inputController.text：${_inputController.text}');
-                      },
-                    ),
-                  ),
                 ),
               ),
               // actions: <Widget>[

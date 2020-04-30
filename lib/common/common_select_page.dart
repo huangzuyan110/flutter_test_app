@@ -1,5 +1,4 @@
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'fix_tab_bar_view.dart';
@@ -95,15 +94,16 @@ class _CommonSelectPageState extends State<CommonSelectPage> with AutomaticKeepA
   @override
   void initState() {
     super.initState();
+    print('111111');
+    
     _pageController = PageController();
-
-    tabArr[0]['metaArr']= provices;
+    tabArr[0]['metaArr'] = provices;
     _tabController = TabController(length: tabArr.length, vsync: this);
     // _tabController.addListener(() {
     //   /*
     //     默认点击选项卡切换时会执行了两遍，滑动切换时正常输出一次。
     //     解决：1、增加条件判断：_tabController.index.toDouble() == _tabController.animation.value，此方法完美解决
-    //          2、增加条件判断：_tabController.indexIsChanging， 但是此时文案滑����时不会再执行，只适用于tabBar禁用滑动时才能适用
+    //          2、增加条件判断：_tabController.indexIsChanging， 但是此时文案滑动时不会再执行，只适用于tabBar禁用滑动时才能适用
     //    */
 
     //   if (_tabController.index.toDouble() == _tabController.animation.value) {
@@ -121,7 +121,7 @@ class _CommonSelectPageState extends State<CommonSelectPage> with AutomaticKeepA
       /*
         默认点击选项卡切换时会执行了两遍，滑动切换时正常输出一次。
         解决：1、增加条件判断：_tabController.index.toDouble() == _tabController.animation.value，此方法完美解决
-             2、增加条件判断：_tabController.indexIsChanging， 但是此时文案滑����时不会再执行，只适用于tabBar禁用滑动时才能适用
+             2、增加条件判断：_tabController.indexIsChanging， 但是此时文案滑动时不会再执行，只适用于tabBar禁用滑动时才能适用
        */
 
       if (_tabController.index.toDouble() == _tabController.animation.value) {
@@ -194,9 +194,10 @@ class _CommonSelectPageState extends State<CommonSelectPage> with AutomaticKeepA
 
   @override
   void dispose() {
+    // _tabController.dispose();
+    // _pageController.dispose();
+
     super.dispose();
-    _tabController.dispose();
-    _pageController.dispose();
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
+import 'package:flutter_test_app/pages/custom_left_show_delete_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
 import 'package:flutter_test_app/pages/input_expand_page.dart';
 import 'package:flutter_test_app/pages/input_number_page.dart';
@@ -136,6 +137,13 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                 child: OutlineButton(
                   onPressed:()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>MultipleClickPage())),
                   child: Text('跳转到多次点击触发事件页面'),
+                ),
+              ),
+              // 跳转到左滑出现删除的页面
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomLeftShowDeletePage())),
+                  child: Text('跳转到自定义的左滑出现删除的页面'),
                 ),
               )
             ],
