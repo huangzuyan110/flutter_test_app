@@ -29,7 +29,6 @@ class _CustomStepperNewPageState extends State<CustomStepperNewPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _stepperWidget(),
-                
                 Expanded(
                   child: Container(
                     child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
+import 'package:flutter_test_app/pages/auto_width_stepper_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_page.dart';
 import 'package:flutter_test_app/pages/custom_left_show_delete_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
@@ -86,6 +87,14 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>AutoHeightStepperPage()));
                   },
                   child: Text('跳转到不固定高度自定义步骤条页面'),
+                ),
+              ),
+              Container(
+                child: OutlineButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>AutoWidthStepperPage()));
+                  },
+                  child: Text('跳转到均分宽度自定义步骤条页面'),
                 ),
               ),
               Container(
