@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/pages/animated/animated_background_page.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
 import 'package:flutter_test_app/pages/auto_width_stepper_page.dart';
+import 'package:flutter_test_app/pages/bubble/bubble_demo_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_page.dart';
 import 'package:flutter_test_app/pages/custom_left_show_delete_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
@@ -10,8 +12,9 @@ import 'package:flutter_test_app/pages/input_number_page.dart';
 import 'package:flutter_test_app/pages/logistics_information_page.dart';
 import 'package:flutter_test_app/pages/multiple_click_page.dart';
 import 'package:flutter_test_app/pages/paint_page.dart';
+import 'package:flutter_test_app/pages/thumb_page.dart';
 import 'common/scaffold_page.dart';
-import 'pages/animation_page.dart';
+import 'pages/animated/animation_page.dart';
 import 'pages/bezier_page.dart';
 import 'pages/left_scroll_delete_page.dart';
 
@@ -154,7 +157,28 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                   onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomLeftShowDeletePage())),
                   child: Text('跳转到自定义的左滑出现删除的页面'),
                 ),
-              )
+              ),
+              // 跳转到仿抖音点赞动画页面
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ThumbPage())),
+                  child: Text('跳转到仿抖音点赞动画页面'),
+                ),
+              ),
+              // 跳转到气泡弹窗页面
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>BubbleDemoPage())),
+                  child: Text('跳转到气泡弹窗页面'),
+                ),
+              ),
+              // 跳转到背景动画页面
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AnibatedBackgroundPage())),
+                  child: Text('跳转到背景动画页面'),
+                ),
+              ),
             ],
           ),
         ),

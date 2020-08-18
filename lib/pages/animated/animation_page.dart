@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
+import 'package:flutter_test_app/pages/animated/animated_up_arrow_widget.dart';
 import 'dart:math' as math;
 import 'package:vector_math/vector_math_64.dart' as v;
 
@@ -216,6 +217,23 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
                   transform: Matrix4.rotationZ(math.pi / 6),
                 )
               ],)
+            ),
+            Divider(),
+            Container(
+              width: double.infinity,
+              height: 120,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("assets/images/bg_nvshen.png")
+                )
+              ),
+              child: Stack(
+                children: <Widget>[
+                  AnimatedUpArrowWidget(),
+                  AnimatedUpArrowWidget(),
+                ],
+              )
             )
           ]
         )

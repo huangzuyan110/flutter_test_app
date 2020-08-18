@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'common/common_select_page.dart';
 import 'common/float_widget.dart';
 import 'common/scaffold_page.dart';
-import 'pages/animated_button.dart';
+import 'pages/animated/animated_button.dart';
 import 'pages/test_future.dart';
 
 class HomePage extends StatefulWidget {
