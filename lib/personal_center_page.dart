@@ -11,7 +11,7 @@ import 'package:flutter_test_app/pages/input_expand_page.dart';
 import 'package:flutter_test_app/pages/input_number_page.dart';
 import 'package:flutter_test_app/pages/logistics_information_page.dart';
 import 'package:flutter_test_app/pages/multiple_click_page.dart';
-import 'package:flutter_test_app/pages/paint_page.dart';
+import 'package:flutter_test_app/pages/paint/paint_page.dart';
 import 'package:flutter_test_app/pages/thumb_page.dart';
 import 'common/scaffold_page.dart';
 import 'pages/animated/animation_page.dart';

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-08-10 11:00:22
- * @LastEditTime: 2020-08-18 10:50:40
- * @LastEditors: your name
+ * @LastEditTime: 2020-08-18 17:35:18
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /gsy_github_app_flutter-master/lib/widget/particle/particle_model.dart
  */
@@ -24,8 +24,12 @@ class ParticleModel {
   }
 
   restart({Duration time = Duration.zero}) {
-    final startPosition = Offset(-0.2 + 1.4 * random.nextDouble(), 1.2);
+    // 底部选择一个随机的起始位置
+    // final startPosition = Offset(-0.2 + 1.4 * random.nextDouble(), 1.2);
 
+    // 固定一个起始位置
+    final startPosition = Offset(0.5, 1.2);
+    // 顶部选择一个随机的目标位置
     final endPosition = Offset(-0.2 + 1.4 * random.nextDouble(), -0.2);
 
     final duration =
@@ -39,7 +43,9 @@ class ParticleModel {
           duration, Tween(begin: startPosition.dy, end: endPosition.dy),
           curve: Curves.easeIn),
     ]);
+    // 随机速度
     animationProgress = AnimationProgress(duration: duration, startTime: time);
+    // 随机大小
     size = 0.2 + random.nextDouble() * 0.4;
   }
 

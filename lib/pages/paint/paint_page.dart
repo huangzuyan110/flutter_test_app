@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
+import 'package:flutter_test_app/pages/paint/image_paint_widget.dart';
 
 class PaintPage extends StatefulWidget {
   PaintPage({Key key}) : super(key: key);
@@ -42,6 +43,10 @@ class _PaintPageState extends State<PaintPage> {
               ),
             ),
             CustomPaint(
+              painter: ImagePaint(),
+              size: Size(MediaQuery.of(context).size.width, 400),
+            ),
+            CustomPaint(
               painter: TrianglePainter(Colors.red),
               child: Container(
                 height: 200,
@@ -68,7 +73,7 @@ class BottomClipper extends CustomClipper<Path> {
   @override
  
   Path getClip(Size size) {
-    print('两个控制点容器size====$size');
+    // print('两个控制点容器size====$size');
     // 绘制点从左往右，从上往下
     Path path = Path();
     // 第1个点, 起始点（0，0）：左上角
@@ -79,8 +84,8 @@ class BottomClipper extends CustomClipper<Path> {
     Offset firstControlPoint = Offset(size.width / 2, size.height);
     // 路径第一个结束控制点 Offset(size.width, size.height - diffHeight)： 以容器宽度为x，（容器高度-diffHeight）为y轴作为结束控制点
     Offset firstEndPoint = Offset(size.width, size.height - diffHeight);
-    print('绘制路径firstControlPoint===$firstControlPoint');
-    print('绘制路径firstEndPoint===$firstEndPoint');
+    // print('绘制路径firstControlPoint===$firstControlPoint');
+    // print('绘制路径firstEndPoint===$firstEndPoint');
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
         firstEndPoint.dx, firstEndPoint.dy);
     // 第3个点, 右下角
@@ -107,7 +112,7 @@ class BottomWavyClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    print('三个控制点容器size====$size');
+    // print('三个控制点容器size====$size');
     // 绘制点从左往右，从上往下
     Path path = Path();
     // 第1个点, 起始点（0，0）：左上角
@@ -118,9 +123,9 @@ class BottomWavyClipper extends CustomClipper<Path> {
     Offset firstControlPoint = Offset(80, size.height);
     Offset secondControlPoint = Offset(100, size.height - diffHeight-60);
     Offset thirdControlPoint = Offset(200, size.height - diffHeight);
-    print('绘制路径firstControlPoint===$firstControlPoint');
-    print('绘制路径secondControlPoint===$secondControlPoint');
-    print('绘制路径thirdControlPoint===$thirdControlPoint');
+    // print('绘制路径firstControlPoint===$firstControlPoint');
+    // print('绘制路径secondControlPoint===$secondControlPoint');
+    // print('绘制路径thirdControlPoint===$thirdControlPoint');
 
     // 形成曲线
     path.cubicTo(firstControlPoint.dx, firstControlPoint.dy,
@@ -156,7 +161,7 @@ class TriangleClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    print('三角形容器size====$size');
+    // print('三角形容器size====$size');
     // 绘制点从左往右，从上往下
     Path path = Path();
     // 第1个点, 将起始点从左上角移动到容器中心
@@ -197,7 +202,7 @@ class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
-    debugPrint('绘制三角形容器size===$size');
+    // debugPrint('绘制三角形容器size===$size');
     final baseX = size.width * 0.5;
     final baseY = size.height * 0.5;
     // 起点
@@ -220,7 +225,7 @@ class SexangleClipper extends CustomClipper<Path>{
   @override
   Path getClip(Size size) {
     // TODO: implement getClip
-    debugPrint('六边形容器的size====$size');
+    // debugPrint('六边形容器的size====$size');
     Path path = Path();
     path.moveTo(size.width/2 - 100, 0);
     // path.lineTo(x, y)
