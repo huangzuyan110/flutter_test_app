@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-08-18 10:43:39
- * @LastEditTime: 2020-08-18 15:10:29
- * @LastEditors: your name
+ * @LastEditTime: 2020-08-18 18:19:49
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/animated/animated_background_page.dart
  */
@@ -27,7 +27,7 @@ class _AnibatedBackgroundPageState extends State<AnibatedBackgroundPage> {
         color: Theme.of(context).primaryColor,
         child: Stack(children: <Widget>[
           Positioned.fill(child: AnimatedBackground()),
-          Positioned.fill(child: ParticlesWidget(30)),
+          Positioned.fill(child: ParticlesWidget(6)),
           new Center(
             ///防止overFlow的现象
             child: SafeArea(

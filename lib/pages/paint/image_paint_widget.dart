@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-18 16:38:57
- * @LastEditTime: 2020-08-18 16:57:00
+ * @LastEditTime: 2020-08-18 17:37:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/paint/image_paint_widget.dart
