@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/pages/particle/particle_widget.dart';
 
 import 'common/scaffold_page.dart';
 
@@ -111,14 +112,15 @@ class _ProductPageState extends State<ProductPage> {
     return Container(
       padding: EdgeInsets.all(10),
       color: Colors.pink,
-      child: Column(
+      child: Stack(
         children: <Widget>[
           Container(
             width: 100,
             height: 100,
             color: Colors.lightGreen,
           ),
-          Text('${product['name']}')
+          Text('${product['name']}'),
+          Positioned.fill(child: ParticlesWidget(6)),
         ],
       ),
     );

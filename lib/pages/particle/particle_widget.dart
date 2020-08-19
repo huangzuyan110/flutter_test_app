@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-10 11:00:22
- * @LastEditTime: 2020-08-18 18:29:47
+ * @LastEditTime: 2020-08-19 10:32:18
  * @LastEditors: Please set LastEditors
  * @Description: 粒子动画
  * @FilePath: /flutter_test_app/lib/pages/particle/particle_widget.dart
@@ -14,7 +14,8 @@ import 'package:simple_animations/simple_animations/rendering.dart';
 
 import 'particle_model.dart';
 import 'particle_painter.dart';
-
+import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
 class ParticlesWidget extends StatefulWidget {
   final int numberOfParticles;
 
@@ -28,14 +29,30 @@ class _ParticlesWidgetState extends State<ParticlesWidget> {
   final Random random = Random();
 
   final List<ParticleModel> particles = [];
-  // List imageList = ['gift1.png', 'gift2.png', 'gift3.png', 'gift4.png', 'gift5.png', 'gift6.png'];
+  List imageList = [];
 
   @override
   void initState() {
-    List.generate(widget.numberOfParticles, (index) {
-      particles.add(ParticleModel(random, defaultMilliseconds: 2000, imageUrl: 'gift${index+1}.png'));
-    });
     super.initState();
+    // 初始化数据
+    _initData();
+  }
+  
+  // 初始化动画对象个数
+  void _initData(){
+    List.generate(widget.numberOfParticles, (index) async{
+      ui.Image image = await _loadImage('assets/images/gift${index+1}.png');
+      particles.add(ParticleModel(random, defaultMilliseconds: 2000, image: image));
+    });
+  }
+
+
+  /// 加载图片
+  Future<ui.Image> _loadImage(String path) async {
+    var data = await rootBundle.load(path);
+    var codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    var info = await codec.getNextFrame();
+    return info.image;
   }
 
   @override

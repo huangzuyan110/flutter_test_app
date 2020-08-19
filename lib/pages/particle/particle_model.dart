@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-10 11:00:22
- * @LastEditTime: 2020-08-18 18:26:03
+ * @LastEditTime: 2020-08-19 10:28:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /gsy_github_app_flutter-master/lib/widget/particle/particle_model.dart
@@ -20,9 +20,8 @@ class ParticleModel {
   Random random;
   int defaultMilliseconds;
   ui.Image image;
-  String imageUrl;
 
-  ParticleModel(this.random, {this.defaultMilliseconds = 500, this.imageUrl=''}) {
+  ParticleModel(this.random, {this.defaultMilliseconds = 500, this.image}) {
     restart();
   }
 
@@ -51,9 +50,10 @@ class ParticleModel {
     // 随机大小
     size = 0.2 + random.nextDouble() * 0.4;
     
+    /* // 注意不能通过这里加载图片， 这是一个异步操作，在这里加载图片会导致图片找不到，图片需要在初始化的时候就加载好，然后传递进来
     _loadImage('assets/images/$imageUrl').then((res) {
       image = res;
-    });
+    }); */
   }
 
   /// 加载图片
@@ -63,6 +63,8 @@ class ParticleModel {
     var info = await codec.getNextFrame();
     return info.image;
   }
+
+  
   maintainRestart(Duration time) {
     if (animationProgress.progress(time) == 1.0) {
       restart(time: time);
