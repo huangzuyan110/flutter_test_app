@@ -120,7 +120,17 @@ class _ProductPageState extends State<ProductPage> {
             color: Colors.lightGreen,
           ),
           Text('${product['name']}'),
-          Positioned.fill(child: ParticlesWidget(6)),
+          // 动画铺满容器
+          // Positioned.fill(
+          //   child: ParticlesWidget(6)
+          // ),
+          Positioned(
+            left: 0,
+            right: 50,
+            bottom: 0,
+            top: 0,
+            child: ParticlesWidget(6)
+          ),
         ],
       ),
     );

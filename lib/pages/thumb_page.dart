@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-08-17 09:55:22
- * @LastEditTime: 2020-08-17 10:38:05
+ * @LastEditTime: 2020-08-19 15:31:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/thumb_page.dart
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
-import 'package:flutter_test_app/pages/tikTok_favorite_animation_page.dart';
+import 'package:flutter_test_app/pages/animated/tikTok_favorite_animation_page.dart';
 
 class ThumbPage extends StatefulWidget {
   ThumbPage({Key key}) : super(key: key);

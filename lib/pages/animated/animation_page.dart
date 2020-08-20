@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
 import 'package:flutter_test_app/pages/animated/animated_up_arrow_widget.dart';
+import 'package:flutter_test_app/pages/animated/custom_gift_widget.dart';
 import 'dart:math' as math;
 import 'package:vector_math/vector_math_64.dart' as v;
+import 'package:weather_widget/WeatherWidget.dart';
 
 class AnimationPage extends StatefulWidget {
   AnimationPage({Key key}) : super(key: key);
@@ -234,7 +237,70 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
                   AnimatedUpArrowWidget(),
                 ],
               )
-            )
+            ),
+            // 插件飘雪花
+            Container(
+              width: double.infinity,
+              height: 400,
+              child: Transform.rotate(
+                angle: -math.pi,
+                child: WeatherWidget(
+                  size:Size.infinite,
+                  weather:'Snowy',
+                  snowConfig:SnowConfig(
+                    snowNum: 10
+                  )
+                ),
+              )
+            ),
+            Divider(),
+            // 插件落雨
+            Container(
+              height: 300,
+              child: WeatherWidget(
+                size:Size.infinite,
+                weather:'Rainy',
+                rainConfig:RainConfig(
+                  rainNum: 20
+                )
+              ),
+            ),
+            Divider(),
+            // 自定义礼物飘动动画
+            Container(
+              width: 300,
+              height: 120,
+              color: Colors.yellow,
+              child: Stack(
+                children: <Widget>[
+                  CustomWeatherWidget(
+                    size:Size.infinite,
+                    weather:'Gift',
+                    giftConfig:CustomGiftConfig(
+                      giftNum: 6,
+                      giftSize: ScreenUtil().setWidth(20),
+                      giftAreaXStart: 1,
+                      giftAreaXEnd: 6,
+                      giftAreaYStart: 100,
+                      giftAreaYEnd: 0,
+                      giftFallSecMin: 2,
+                      giftFallSecMax: 5,
+                      giftWaveSecMin: 1,
+                      giftWaveSecMax: 2,
+                      giftWaveRangeMin: 1,
+                      giftWaveRangeMax: 20,
+                      imgUrls:['gift1.png', 'gift2.png', 'gift3.png', 'gift4.png', 'gift5.png', 'gift6.png', ]
+                    )
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Image.asset('assets/images/default_tx.png', width: ScreenUtil().setWidth(40), height: ScreenUtil().setWidth(40),),
+                  )
+                ],
+              )
+            ),
+            Divider(),
           ]
         )
       )
