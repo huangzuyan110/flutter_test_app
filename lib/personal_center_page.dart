@@ -7,6 +7,7 @@ import 'package:flutter_test_app/pages/bubble/bubble_demo_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_page.dart';
 import 'package:flutter_test_app/pages/custom_left_show_delete_page.dart';
 import 'package:flutter_test_app/pages/custom_stepper_new_page.dart';
+import 'package:flutter_test_app/pages/frosted_page.dart';
 import 'package:flutter_test_app/pages/input_expand_page.dart';
 import 'package:flutter_test_app/pages/input_number_page.dart';
 import 'package:flutter_test_app/pages/logistics_information_page.dart';
@@ -177,6 +178,13 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                 child: OutlineButton(
                   onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AnibatedBackgroundPage())),
                   child: Text('跳转到背景动画页面'),
+                ),
+              ),
+              // 跳转到毛玻璃效果页面
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>FrostedPage())),
+                  child: Text('跳转到毛玻璃效果页面'),
                 ),
               ),
             ],

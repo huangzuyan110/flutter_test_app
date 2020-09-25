@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-08-18 10:41:59
- * @LastEditTime: 2020-08-18 10:42:49
+ * @LastEditTime: 2020-09-25 17:20:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/animated_background/animated_background_page.dart
  */
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations/controlled_animation.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 
 class AnimatedBackground extends StatelessWidget {

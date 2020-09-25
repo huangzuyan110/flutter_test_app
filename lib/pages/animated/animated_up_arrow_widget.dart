@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-18 14:26:25
- * @LastEditTime: 2020-08-20 17:01:08
+ * @LastEditTime: 2020-08-24 18:17:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/animated/animated_up_arrow_widget.dart

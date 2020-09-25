@@ -222,22 +222,7 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
               ],)
             ),
             Divider(),
-            Container(
-              width: double.infinity,
-              height: 120,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("assets/images/bg_nvshen.png")
-                )
-              ),
-              child: Stack(
-                children: <Widget>[
-                  AnimatedUpArrowWidget(),
-                  AnimatedUpArrowWidget(),
-                ],
-              )
-            ),
+            
             // 插件飘雪花
             Container(
               width: double.infinity,
@@ -301,6 +286,22 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
               )
             ),
             Divider(),
+            Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("assets/images/bg_nvshen.png")
+                )
+              ),
+              child: Stack(
+                children: <Widget>[
+                  AnimatedUpArrowWidget(),
+                  AnimatedUpArrowWidget(),
+                ],
+              )
+            ),
           ]
         )
       )

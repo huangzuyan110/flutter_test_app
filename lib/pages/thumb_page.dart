@@ -1,6 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-08-17 09:55:22
+ * @LastEditTime: 2020-09-25 17:22:49
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /flutter_test_app/lib/pages/thumb_page.dart
+ */
+/*
+ * @Author: your name
+ * @Date: 2020-08-17 09:55:22
  * @LastEditTime: 2020-08-19 15:31:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
