@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
@@ -20,6 +23,13 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
   Animation<Offset> _transitionAnimation;
   AnimationController _controller;
   AnimationController _numAnimationController;
+   // 上下移动动画、左右移动动画
+  AnimationController _fallController, _waveController;
+  Animation _fallAnimation, _waveAnimation;
+  double _randomGiftX, _randomGiftWave, _fallStart, _fallEnd;
+  int _randomGiftFallDuration, _randomGiftWaveDuration;
+  Curve _waveCurve;
+  double _x = 50, _y = 200;
   bool _selected = false;
   double _sum = 100;
   double _amountD = 10;
@@ -27,12 +37,30 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
+    _setRandomData();
     _controller = new AnimationController(duration: const Duration(milliseconds: 2000),vsync: this);
     _numAnimationController = new AnimationController(duration: const Duration(seconds: 2), vsync: this);
+
+    _waveCurve = Curves.easeInOutSine;
+    _fallStart = 20;
+    _fallEnd = 60 ;
+    _fallController = AnimationController(
+        vsync: this, duration: Duration(seconds: _randomGiftFallDuration));
+    _waveController = AnimationController(
+        vsync: this, duration: Duration(seconds: _randomGiftWaveDuration));
+    _fallAnimation = Tween(begin: _fallStart, end: _fallEnd)
+        .animate(CurvedAnimation(parent: _fallController, curve: Curves.linear));
+    _waveAnimation = Tween(
+            begin: _randomGiftWaveDuration.isEven
+                ? _randomGiftX
+                : _randomGiftX + _randomGiftWave,
+            end: _randomGiftWaveDuration.isEven
+                ? _randomGiftX + _randomGiftWave
+                : _randomGiftX)
+        .animate(CurvedAnimation(parent: _waveController, curve: _waveCurve));
+
     _animation = new Tween(begin:0.0, end:100.0).animate(_controller)..addListener((){
-      setState(() {
-        
-      });
+      setState(() {});
     });
     // 1.35 = (屏幕宽(375)-小部件宽)/2/小部件宽
     _transitionAnimation = Tween(begin: Offset(-1.35, 0), end: Offset(1.35, 0.0)).animate(_controller);
@@ -53,16 +81,65 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
           break;
       }
     });
+    _fallAnimation.addListener(() {
+      setState(() {
+        _y = _fallAnimation.value;
+      });
+    });
+    _waveAnimation.addListener(() {
+      setState(() {
+        _x = _waveAnimation.value;
+      });
+    });
+    _fallAnimation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _setRandomData();
+        _fallController.duration = Duration(seconds: _randomGiftFallDuration);
+        _fallAnimation = Tween(begin: 0.0, end: 100.0).animate(
+            CurvedAnimation(parent: _fallController, curve: Curves.bounceInOut));
+
+        _waveController.duration = Duration(seconds: _randomGiftFallDuration);
+        _waveAnimation = Tween(
+            begin: _randomGiftWaveDuration.isEven
+              ? _randomGiftX
+              : _randomGiftX + _randomGiftWave,
+            end: _randomGiftWaveDuration.isEven
+              ? _randomGiftX + _randomGiftWave
+              : _randomGiftX)
+            .animate(CurvedAnimation(parent: _waveController, curve: Curves.easeInOutSine));
+
+        _fallController.reset();
+        _fallController.forward();
+        _waveController.reset();
+        _waveController.repeat(reverse: true);
+      }
+    });
     _controller.forward(); // 正向开始执行动画
     // // _controller.repeat(); // 重复执行动画
     _numAnimationController.forward();
+    _fallController.forward();
+    _waveController.repeat(reverse: true);
   }
   @override
   void dispose() {
     _controller.dispose();
     _numAnimationController.dispose();
+    _fallController.dispose();
+    _waveController.dispose();
     super.dispose();
 
+  }
+  // 设置随机数
+  _setRandomData() {
+    _randomGiftX = _randomGift(poolStart: 30, poolEnd: 220).toDouble();
+    _randomGiftWave = _randomGift(poolStart: 20, poolEnd: 110).toDouble();
+    _randomGiftFallDuration = _randomGift(poolStart: 10, poolEnd: 60);
+    _randomGiftWaveDuration = _randomGift(poolStart: 5, poolEnd: 20);
+  }
+
+  int _randomGift({int poolStart, int poolEnd}) {
+    Random random = Random();
+    return random.nextInt(poolEnd - poolStart + 1) + poolStart;
   }
 
   void _numProgressAnimation(){
@@ -298,9 +375,22 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
               child: Stack(
                 children: <Widget>[
                   AnimatedUpArrowWidget(),
-                  AnimatedUpArrowWidget(),
                 ],
               )
+            ),
+            Divider(),
+            Container(
+              width: double.infinity,
+              height: 300,
+              child: AnimatedBuilder(
+                animation: _fallController,
+                builder: (BuildContext context, Widget child) {
+                  return Container(
+                    margin: EdgeInsets.only(left: _x, top: _y),
+                    child: Image.asset('assets/images/gift1.png'),
+                  );
+                },
+              ),
             ),
           ]
         )

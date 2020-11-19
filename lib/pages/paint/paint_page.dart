@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
 import 'package:flutter_test_app/pages/paint/image_paint_widget.dart';
-
+import 'dart:math' as math;
 class PaintPage extends StatefulWidget {
   PaintPage({Key key}) : super(key: key);
 
@@ -32,6 +32,44 @@ class _PaintPageState extends State<PaintPage> {
                 height: 200,
                 color: Colors.cyan,
               )
+            ),
+            Container(
+              width: 120,
+              height: 150,
+              child: CustomPaint(
+                painter: MenuPanelPainter(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: ListView(
+                    children: [
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        color: Colors.redAccent,
+                        child: Text('精选'),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        color: Colors.redAccent,
+                        child: Text('热卖'),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        color: Colors.white,
+                        child: Text('女装'),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        color: Colors.redAccent,
+                        child: Text('童装'),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
             ClipPath(
               clipper: TriangleClipper(),
@@ -109,7 +147,6 @@ class BottomWavyClipper extends CustomClipper<Path> {
   // 曲线起始点距离底部的高度
   final double diffHeight;
 
-
   @override
   Path getClip(Size size) {
     // print('三个控制点容器size====$size');
@@ -150,6 +187,50 @@ class BottomWavyClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
+}
+
+// 绘制带三角形的面板
+class MenuPanelPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    print('绘制带三角形的面板size===$size');
+    var paint = Paint()
+      ..isAntiAlias = true
+      ..strokeWidth=0.0
+      ..color=Colors.redAccent
+      ..invertColors=false;
+    
+    Path path = Path();
+    // 第1个点, 将起始点从左上角移动到容器中心
+    path.lineTo(0, 0);
+    path.lineTo(0, size.height+2);
+    path.lineTo(size.width+2, size.height+2);
+    path.lineTo(size.width+2, 0);
+
+    // 绘制阴影
+    canvas.drawShadow(path, Colors.black.withOpacity(0.5), 10.0, false);
+
+    // Rect rect=Rect.fromLTRB(0.0, 0.0, size.width, size.height/2);
+    // // 绘制扇形
+    // canvas.drawArc(rect, 0.0, 2 * math.pi/4, false, paint);
+
+    Path path2 = Path();
+    path2.moveTo(15, 0);
+    path2.lineTo(23, -10);
+    path2.lineTo(33, 0);
+    // 绘制三角形
+    canvas.drawPath(path2, paint);
+
+    RRect rRect = RRect.fromLTRBR(0, 0, size.width, size.height, Radius.circular(8));
+    // 绘制矩形
+    canvas.drawRRect(rRect, paint);
+
+  }
+ 
+  //在实际场景中正确利用此回调可以避免重绘开销，本示例我们简单的返回true
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+
 }
 
 // 三角形
