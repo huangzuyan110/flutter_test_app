@@ -208,7 +208,8 @@ class MenuPanelPainter extends CustomPainter {
     path.lineTo(size.width+2, 0);
 
     // 绘制阴影
-    canvas.drawShadow(path, Colors.black.withOpacity(0.5), 10.0, false);
+    // canvas.drawShadow(path, Colors.black.withOpacity(0.5), 10.0, false);
+    canvas.drawShadow(path, Color.fromRGBO(0, 0, 0, 0.5), 10.0, false);
 
     // Rect rect=Rect.fromLTRB(0.0, 0.0, size.width, size.height/2);
     // // 绘制扇形
