@@ -1,4 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Author: huangzuyan
+ * @Date: 2020-03-31 11:21:00
+ */
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/pages/map/show_marker.dart';
 import 'common/common_select_page.dart';
 import 'common/float_widget.dart';
 import 'common/scaffold_page.dart';
@@ -39,8 +45,9 @@ class _HomePageState extends State<HomePage> {
                     TestFuture testFuture = new TestFuture();
                     String a = await testFuture.getIntNumber();
                     print('future返回的值===$a');
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ShowMarker()));
                   },
-                  child: Text('跳转到上传多张图片页面'),
+                  child: Text('跳转到show marker'),
                 ),
               ],
             ),
