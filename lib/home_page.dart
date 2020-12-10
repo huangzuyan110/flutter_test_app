@@ -5,6 +5,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/map/show_marker.dart';
+import 'package:flutter_test_app/pages/star_rating_page.dart';
 import 'common/common_select_page.dart';
 import 'common/float_widget.dart';
 import 'common/scaffold_page.dart';
@@ -48,6 +49,12 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>ShowMarker()));
                   },
                   child: Text('跳转到show marker'),
+                ),
+                RaisedButton(
+                  onPressed: () async{
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>StarRatingPage()));
+                  },
+                  child: Text('跳转到星级评分'),
                 ),
               ],
             ),
