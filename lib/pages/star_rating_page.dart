@@ -73,7 +73,7 @@ class _StarRatingPageState extends State<StarRatingPage> {
               color: Colors.pinkAccent,
               borderColor: Colors.pinkAccent,
               starCount: 5,
-              allowHalfRating: true,
+              allowHalfRating: false,
               spacing: 0.0,
               onRated: (value) {
                 print("rating value -> $value");
@@ -81,6 +81,24 @@ class _StarRatingPageState extends State<StarRatingPage> {
               },
             )
           ),
+          Center(
+            child: SmoothStarRating(
+              rating: rating,
+              isReadOnly: false,
+              size: 80,
+              filledIconData: Icons.sentiment_satisfied,
+              defaultIconData: Icons.sentiment_satisfied,
+              color: Colors.pinkAccent,
+              borderColor: Colors.grey,
+              starCount: 5,
+              allowHalfRating: false,
+              spacing: 0.0,
+              onRated: (value) {
+                print("rating value -> $value");
+                // print("rating value dd -> ${value.truncate()}");
+              },
+            )
+          )
         ],
       )
     );
