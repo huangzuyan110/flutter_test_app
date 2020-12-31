@@ -76,6 +76,7 @@ class _FlipWidgetState extends State<FlipWidget>
 
   @override
   void initState() {
+    super.initState();
     // 5 秒动画，利用 reset、forward 重复执行
     _controller = AnimationController(
       duration: Duration(seconds: 5),
@@ -84,7 +85,7 @@ class _FlipWidgetState extends State<FlipWidget>
 
     // 上数字动画
     // controller总动画比例为 0~1，Interval 参数为该比例。
-    // 控制在 0.0~0.5。
+    // 控制在 0.0~0.5。(即延时0秒执行，并且在动画时长*0.5结束动画)
     _upAnimation = Tween(
       begin: 0.0,
       end: pi / 2,
@@ -96,7 +97,7 @@ class _FlipWidgetState extends State<FlipWidget>
     );
     // 下数字动画
     // controller总动画比例为 0~1，Interval 参数为该比例。
-    // 控制在 0.51~1。
+    // 控制在 0.51~1。(即延时0.51*动画时长秒执行)
     _downAnimation = Tween(
       begin: 0.0,
       end: pi / 2,
@@ -141,8 +142,12 @@ class _FlipWidgetState extends State<FlipWidget>
     });
     // 默认开启动画，也使用 press 效果触发。
     _controller.forward();
+  }
 
-    super.initState();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   // ClipRect 做比例切割，形成图片效果
@@ -191,8 +196,11 @@ class _FlipWidgetState extends State<FlipWidget>
   Widget lower2() {
     return Transform(
       alignment: Alignment.topCenter,
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.002)
+      // // identity：恢复初始状态，也就是4*4的单位矩阵
+      // transform: Matrix4.identity()
+      transform: Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) 
+        // 设置景深 3D视角
+        ..setEntry(3, 2, 0.002) 
         ..rotateX(pi / 2 * 3)
         ..rotateX(_downAnimation.value),
       child: _makeLower(_nextIndex),
@@ -212,7 +220,7 @@ class _FlipWidgetState extends State<FlipWidget>
           ],
         ),
         Container(
-          width: 200.0,
+          width: 400.0,
           height: 2.0,
           color: Colors.white,
         ),
