@@ -59,7 +59,7 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
                 : _randomGiftX)
         .animate(CurvedAnimation(parent: _waveController, curve: _waveCurve));
 
-    _animation = new Tween(begin:0.0, end:100.0).animate(_controller)..addListener((){
+    _animation = new Tween(begin:50.0, end:100.0).animate(_controller)..addListener((){
       setState(() {});
     });
     // 1.35 = (屏幕宽(375)-小部件宽)/2/小部件宽

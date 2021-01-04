@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/animated/animated_background_page.dart';
 import 'package:flutter_test_app/pages/animated/animated_card_flip_page.dart';
+import 'package:flutter_test_app/pages/animated/animated_red_envelope_page.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
 import 'package:flutter_test_app/pages/auto_width_stepper_page.dart';
 import 'package:flutter_test_app/pages/bubble/bubble_demo_page.dart';
@@ -196,6 +197,16 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                   },
                   color: Colors.red,
                   child: Text('跳转到翻转(从上到下)卡片数字动画'),
+                ),
+              ),
+              // 跳转到开红包动画
+              Container(
+                child: MaterialButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>RedEnvelopePage()));
+                  },
+                  color: Colors.red,
+                  child: Text('跳转到开红包动画'),
                 ),
               ),
             ],
