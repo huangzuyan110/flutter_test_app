@@ -164,6 +164,7 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Transform(
+                  // 定点从哪个位置打开红包 Alignment.topCenter
                   alignment: Alignment.topCenter,
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, 0.002)
