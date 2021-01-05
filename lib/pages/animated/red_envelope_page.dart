@@ -62,7 +62,7 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
         slideController.forward();
       }
     });
-    
+    // 向里面打开
     flipAnimation = Tween(
       begin: 0.0,
       end: math.pi / 2,

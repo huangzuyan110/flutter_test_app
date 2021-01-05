@@ -32,7 +32,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     AnimationController controller = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
     flipController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
     scaleController = controller
-     ..addStatusListener((status) {
+      ..addStatusListener((status) {
         // debugPrint('当前动画状态status===$status');
         if (status == AnimationStatus.completed) {
           //AnimationStatus.completed 动画在结束时停止的状态
@@ -67,7 +67,10 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     
     flipAnimation = Tween(
       begin: 0.0,
-      end: math.pi / 2,
+      /// 向外打开
+      end: -math.pi / 2,
+      /// 向里打开
+      /// end: math.pi / 2,
     ).animate(
       // 即延时0.51*动画时长(3000)秒执行
       CurvedAnimation(
