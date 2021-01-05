@@ -81,7 +81,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     scaleAnimation = Tween(begin:141.0, end:160.0).animate(scaleController)..addListener(() {
       setState(() {});
     });
-    lineAnimation = Tween(begin: Offset(-0.2, 0.2), end: Offset(0.4, 3.2)).animate(lineController);
+    lineAnimation = Tween(begin: Offset(-0.28, -0.1), end: Offset(0.15, 3.4)).animate(lineController);
     //begin: Offset.zero, end: Offset(1, 1) 以左下角为参考点，相对于左下角坐标 x轴方向向右 平移执行动画的view 的1倍 宽度，y轴方向 向下 平衡执行动画view 的1倍的高度，也就是向右下角平移了
     slideAnimation = Tween(begin: Offset(-0.2, -0.2), end: Offset(0.1, 0.1)).animate(slideController);
 
@@ -215,11 +215,11 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
             Visibility(
               visible: !isClickOpen,
               child: Align(
-                alignment: Alignment(-0.1, 0.0),
+                alignment: Alignment(0.14, 0.0),
                 child: SlideTransition(
                   position: lineAnimation,
                   child: Transform.rotate(
-                    angle: -math.pi/5,
+                    angle: -math.pi/6,
                     child: Container(
                       width: 120,
                       height: 24,
