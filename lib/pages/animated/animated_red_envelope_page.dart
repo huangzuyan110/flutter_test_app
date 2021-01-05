@@ -163,20 +163,23 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
             // 红包上层
             Visibility(
               visible: true,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Transform(
-                  // 定点从哪个位置打开红包 Alignment.topCenter
+              child: Padding(
+                padding: EdgeInsets.only(top: ScreenUtil().setWidth(24)),
+                child: Align(
                   alignment: Alignment.topCenter,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.002)
-                    ..rotateX(flipAnimation.value),
-                  child: Container(
-                    // width: 305,
-                    // height: 230,
-                    width: ScreenUtil().setWidth(610),
-                    height: ScreenUtil().setWidth(460),
-                    child: Image.asset('assets/images/hb_shangceng.png', fit: BoxFit.cover,)
+                  child: Transform(
+                    // 定点从哪个位置打开红包 Alignment.topCenter
+                    alignment: Alignment.topCenter,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.002)
+                      ..rotateX(flipAnimation.value),
+                    child: Container(
+                      // width: 305,
+                      // height: 230,
+                      width: ScreenUtil().setWidth(610),
+                      height: ScreenUtil().setWidth(460),
+                      child: Image.asset('assets/images/hb_shangceng.png', fit: BoxFit.cover,)
+                    ),
                   ),
                 ),
               ),
