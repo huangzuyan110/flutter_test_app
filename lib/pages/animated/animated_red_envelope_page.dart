@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:math' as math;
 
+import 'package:flutter_test_app/util/widget_utils.dart';
+
 class RedEnvelopePage extends StatefulWidget {
   RedEnvelopePage({Key key}) : super(key: key);
 
@@ -245,6 +247,110 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
                 ),
               ),
             ),
+            // 红包中奖后样式
+            _winningWidget(),
+            // 红包未中奖样式
+            _notWinningWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+   // 中奖后文案样式
+  Visibility _winningWidget() {
+    return Visibility(
+      visible: false,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, ScreenUtil().setWidth(60), 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 1,
+                          color: Color(0xFFCD8862),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: getTextWidget(16, '恭喜您获得现金红包', textColor: Color(0xFFCD8862)),
+                        ),
+                        Container(
+                          width: 20,
+                          height: 1,
+                          color: Color(0xFFCD8862),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: ScreenUtil().setWidth(124),
+                    margin: EdgeInsets.only(top: ScreenUtil().setWidth(10), bottom: ScreenUtil().setWidth(110)),
+                    child: getPriceWidget(60, 100.58, Color(0xFFF43333), dollarFontSize: 34)
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setWidth(24)),
+                    child: getTextWidget(12, '红包现金已发放至', textColor: Color(0xFFFFFFFF)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setWidth(48)),
+                    child:getTextWidget(16, '奖励中心>我的收益', textColor: Color(0xFFFCF295)),
+                  ),
+                  Container(
+                    height: ScreenUtil().setWidth(88),
+                    width: ScreenUtil().setWidth(490) ,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFFCE787),
+                          Color(0xFFFFC33C),
+                        ]
+                      ),
+                      borderRadius: BorderRadius.circular(22)
+                    ),
+                    child: getTextWidget(16, '去查看', textColor: Color(0xFFF43333), fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setWidth(40)),
+              child: getTextWidget(12, '*本周抽奖资格已使用，请下周继续', textColor: Color.fromRGBO(255, 255, 255, 0.7)),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 未中奖后文案样式
+  Visibility _notWinningWidget() {
+    return Visibility(
+      visible: false,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(ScreenUtil().setWidth(80)),
+                child: getTextWidget(20, '你长得太好看，红包害羞躲起来了，下周再来哦~', textColor: Color(0xFFF43333), textAlign: TextAlign.center),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, ScreenUtil().setWidth(40)),
+              child: getTextWidget(12, '*本周抽奖资格已使用，请下周继续',textColor: Color.fromRGBO(255, 255, 255, 0.7)),
+            )
           ],
         ),
       ),
