@@ -138,8 +138,10 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
   // 红包部分
   Container _redPackgeWidget() {
     return Container(
-      width: 333,
-      height: 368,
+      // width: 333,
+      // height: 368,
+      width: ScreenUtil().setWidth(666),
+      height: ScreenUtil().setWidth(736),
       margin: EdgeInsets.only(top: 18),
       decoration: BoxDecoration(
         // 红包底层
@@ -170,8 +172,10 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
                     ..setEntry(3, 2, 0.002)
                     ..rotateX(flipAnimation.value),
                   child: Container(
-                    width: 305,
-                    height: 230,
+                    // width: 305,
+                    // height: 230,
+                    width: ScreenUtil().setWidth(610),
+                    height: ScreenUtil().setWidth(460),
                     child: Image.asset('assets/images/hb_shangceng.png', fit: BoxFit.cover,)
                   ),
                 ),
