@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/animated/animated_background_page.dart';
 import 'package:flutter_test_app/pages/animated/animated_card_flip_page.dart';
-import 'package:flutter_test_app/pages/animated/animated_red_envelope_page.dart';
+import 'package:flutter_test_app/pages/animated/red_envelope_page.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
 import 'package:flutter_test_app/pages/auto_width_stepper_page.dart';
 import 'package:flutter_test_app/pages/bubble/bubble_demo_page.dart';

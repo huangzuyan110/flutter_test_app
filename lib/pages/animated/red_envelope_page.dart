@@ -1,6 +1,5 @@
-
 /*
- * @Descripttion: 巴拉树-领取红包页面(Scaffold包含Scaffold布局)
+ * @Descripttion: 巴拉树-领取红包页面
  * @Author: huangzuyan
  * @Date: 2021-01-04 09:22:59
  */
@@ -11,14 +10,14 @@ import 'dart:math' as math;
 
 import 'package:flutter_test_app/util/widget_utils.dart';
 
-class AnimatedRedEnvelopePage extends StatefulWidget {
-  AnimatedRedEnvelopePage({Key key}) : super(key: key);
+class RedEnvelopePage extends StatefulWidget {
+  RedEnvelopePage({Key key}) : super(key: key);
 
   @override
-  _AnimatedRedEnvelopePageState createState() => _AnimatedRedEnvelopePageState();
+  _RedEnvelopePageState createState() => _RedEnvelopePageState();
 }
 
-class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with TickerProviderStateMixin {
+class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderStateMixin {
   //动画控制器 scaleController：缩放动画 slideController：平移动画 lineController: 白线动画 flipController: 开红包动画
   AnimationController scaleController, slideController, lineController, flipController;
   Animation scaleAnimation, slideAnimation, lineAnimation, flipAnimation;
@@ -108,27 +107,14 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
             height: ScreenUtil().setWidth(832),
             decoration: BoxDecoration(
               image: DecorationImage(
-                alignment: Alignment.topCenter,
                 image: AssetImage("assets/images/hb_beijing.png"),
                 fit: BoxFit.cover
               ),
-            )
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              title: Text(
-                '用户红包抽奖活动',
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
             ),
-            body: SingleChildScrollView(
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(0, ScreenUtil().setHeight((44 + MediaQuery.of(context).padding.top)*2), 0, 0),
               child: Column(
                 children: [
                   // 红包
@@ -139,6 +125,8 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
               ),
             ),
           ),
+          // 导航
+          _navibarWidget(context),
         ],
       ),
     );
@@ -416,6 +404,43 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
               ),
             )
           )
+        ],
+      ),
+    );
+  }
+
+  // 导航栏
+  Container _navibarWidget(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      height: 44 + MediaQuery.of(context).padding.top,
+      child: Stack(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              '用户红包抽奖活动',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ),
+          // 返回按钮
+          Container(
+            height: 44,
+            width: 36,
+            child: IconButton(
+              padding: EdgeInsets.all(0),
+              icon: Container(
+                width: 24,
+                height: 24,
+                child: Image.asset("assets/images/back_white.png", fit: BoxFit.cover),
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ),
         ],
       ),
     );

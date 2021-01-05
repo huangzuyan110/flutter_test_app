@@ -4,6 +4,7 @@
  * @Date: 2020-03-31 11:21:00
  */
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/pages/animated/animated_red_envelope_page.dart';
 import 'package:flutter_test_app/pages/map/show_marker.dart';
 import 'package:flutter_test_app/pages/star_rating_page.dart';
 import 'common/common_select_page.dart';
@@ -55,6 +56,12 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>StarRatingPage()));
                   },
                   child: Text('跳转到星级评分'),
+                ),
+                RaisedButton(
+                  onPressed: () async{
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AnimatedRedEnvelopePage()));
+                  },
+                  child: Text('跳转到打开红包(Scaffold包含Scaffold布局)'),
                 ),
               ],
             ),
