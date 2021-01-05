@@ -30,39 +30,40 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     // TODO: implement initState
     super.initState();
     AnimationController controller = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
-    scaleController = slideController = controller;
-    lineController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     flipController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
-    scaleController.addStatusListener((status) {
-      // debugPrint('当前动画状态status===$status');
-      if (status == AnimationStatus.completed) {
-        //AnimationStatus.completed 动画在结束时停止的状态
-        scaleController?.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        //AnimationStatus.dismissed 表示动画在开始时就停止的状态=
-        scaleController.forward();
-      }
-    });
+    scaleController = controller
+     ..addStatusListener((status) {
+        // debugPrint('当前动画状态status===$status');
+        if (status == AnimationStatus.completed) {
+          //AnimationStatus.completed 动画在结束时停止的状态
+          scaleController?.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          //AnimationStatus.dismissed 表示动画在开始时就停止的状态=
+          scaleController.forward();
+        }
+      });
     
     //动画开始、结束、向前移动或向后移动时会调用StatusListener
-    lineController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        //AnimationStatus.completed 动画在结束时停止的状态
-        lineController?.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        //AnimationStatus.dismissed 表示动画在开始时就停止的状态
-        lineController.forward();
-      }
-    });
-    slideController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        //AnimationStatus.completed 动画在结束时停止的状态
-        slideController?.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        //AnimationStatus.dismissed 表示动画在开始时就停止的状态
-        slideController.forward();
-      }
-    });
+    lineController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          //AnimationStatus.completed 动画在结束时停止的状态
+          lineController?.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          //AnimationStatus.dismissed 表示动画在开始时就停止的状态
+          lineController.forward();
+        }
+      });
+    slideController = controller
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          //AnimationStatus.completed 动画在结束时停止的状态
+          slideController?.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          //AnimationStatus.dismissed 表示动画在开始时就停止的状态
+          slideController.forward();
+        }
+      });
     
     flipAnimation = Tween(
       begin: 0.0,
