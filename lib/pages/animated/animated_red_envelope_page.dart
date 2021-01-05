@@ -101,6 +101,28 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     flipController.dispose();
   }
 
+  void handleCheckSameWeek(){
+    DateTime createAt = DateTime.parse('2020-10-10 22:12:22.0');
+    // 指定日期时间戳
+    DateTime oldDate = DateTime(2021, 1, 4, 21, 20, 20);
+    // 当前时间戳
+    DateTime nowDate = DateTime.now();
+    // print('$oldDate --- ${oldDate.millisecondsSinceEpoch}');
+    // print('$nowDate --- ${nowDate.millisecondsSinceEpoch}');
+    bool isSame = checkIsSameWeek(oldDate, nowDate);
+    // print('是否是在同一周$isSame');
+  }
+
+  // 判断两个时间是否处于同一周
+  bool checkIsSameWeek(old, now){
+    int oneDayTime = 1000 * 60 * 60 * 24;
+    int oldCount = (old.millisecondsSinceEpoch/oneDayTime).floor();
+    int nowCount = (now.millisecondsSinceEpoch/oneDayTime).floor();
+
+    // +3天：(自然周：周一至周日) +4天（自然周：周日至周六）
+    return ((oldCount+3)/7).floor() == ((nowCount+3)/7).floor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
