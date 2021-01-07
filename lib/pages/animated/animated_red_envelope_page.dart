@@ -29,9 +29,8 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
   void initState() {
     // TODO: implement initState
     super.initState();
-    AnimationController controller = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
     flipController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
-    scaleController = controller
+    scaleController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this)
       ..addStatusListener((status) {
         // debugPrint('当前动画状态status===$status');
         if (status == AnimationStatus.completed) {
@@ -54,7 +53,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
           lineController.forward();
         }
       });
-    slideController = controller
+    slideController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           //AnimationStatus.completed 动画在结束时停止的状态
@@ -94,11 +93,12 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
   @override
   void dispose() {
     // TODO: implement dispose
+    scaleController?.dispose();
+    lineController?.dispose();
+    slideController?.dispose();
+    flipController?.dispose();
+
     super.dispose();
-    scaleController.dispose();
-    lineController.dispose();
-    slideController.dispose();
-    flipController.dispose();
   }
 
   void handleCheckSameWeek(){

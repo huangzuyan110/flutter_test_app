@@ -28,8 +28,8 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
   void initState() {
     // TODO: implement initState
     super.initState();
-    AnimationController controller = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
-    scaleController = slideController = controller;
+    scaleController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
+    slideController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
     lineController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     flipController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
     scaleController.addStatusListener((status) {
@@ -89,11 +89,12 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
   @override
   void dispose() {
     // TODO: implement dispose
+    scaleController?.dispose();
+    lineController?.dispose();
+    slideController?.dispose();
+    flipController?.dispose();
+
     super.dispose();
-    scaleController.dispose();
-    lineController.dispose();
-    slideController.dispose();
-    flipController.dispose();
   }
 
   @override
