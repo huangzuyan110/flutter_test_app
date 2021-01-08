@@ -295,6 +295,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     return Visibility(
       visible: false,
       child: Container(
+        width: double.infinity,
         padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
         child: Column(
           children: [
@@ -371,6 +372,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     return Visibility(
       visible: false,
       child: Container(
+        width: double.infinity,
         padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
         child: Column(
           children: [

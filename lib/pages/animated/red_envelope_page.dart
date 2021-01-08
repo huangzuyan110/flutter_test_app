@@ -334,6 +334,7 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
     return Visibility(
       visible: false,
       child: Container(
+        width: double.infinity,
         padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
         child: Column(
           children: [
@@ -356,6 +357,7 @@ class _RedEnvelopePageState extends State<RedEnvelopePage> with TickerProviderSt
   // 活动说明
   Container _activityTipsWidget() {
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
