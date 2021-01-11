@@ -34,6 +34,7 @@ dependencies:
   map_launcher: 1.0.0
   flutter_svg: 0.19.1
   smooth_star_rating: 1.1.1
+  shimmer: ^1.1.2
 
 dev_dependencies:
   flutter_test:

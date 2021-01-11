@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_test_app/util/widget_utils.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AnimatedRedEnvelopePage extends StatefulWidget {
   AnimatedRedEnvelopePage({Key key}) : super(key: key);
@@ -393,58 +394,62 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
   }
 
   // 活动说明
-  Container _activityTipsWidget() {
-    return Container(
-      padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 14, 0.0, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset('assets/images/hb_zs_zuo.png', width: 14, height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: Text(
-                    '活动说明',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color:  Color(0xFF713510)
+  Widget _activityTipsWidget() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey,
+      highlightColor: Colors.red,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 14, 0.0, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/hb_zs_zuo.png', width: 14, height: 10),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                    child: Text(
+                      '活动说明',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color:  Color(0xFF713510)
+                      ),
                     ),
                   ),
+                  Transform.rotate(
+                    angle: -math.pi,
+                    child: Image.asset('assets/images/hb_zs_zuo.png', width: 14, height: 10,),
+                  )
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                text: '1.用户每自然周可参与一次随机现金红包抽奖；\n2.抽取后本自然周内不可再次参与，下一自然周可继续参与；\n3.抽中现金红包后，按抽中金额直接发放至"我的收益"，用户可进行提现；\n4.所有利用平台漏洞的恶意抽奖行为所得将被取消资格，并将承担法律责任；',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF713510),
+                  height: 1.5
                 ),
-                Transform.rotate(
-                  angle: -math.pi,
-                  child: Image.asset('assets/images/hb_zs_zuo.png', width: 14, height: 10,),
-                )
-              ],
-            ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: '1.用户每自然周可参与一次随机现金红包抽奖；\n2.抽取后本自然周内不可再次参与，下一自然周可继续参与；\n3.抽中现金红包后，按抽中金额直接发放至"我的收益"，用户可进行提现；\n4.所有利用平台漏洞的恶意抽奖行为所得将被取消资格，并将承担法律责任；',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF713510),
-                height: 1.5
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 24, 0, 12),
-            alignment: Alignment.center,
-            child: Text(
-              '最终解释权归平台所有',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color.fromRGBO(113, 53, 16, 0.3)
-              ),
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 24, 0, 12),
+              alignment: Alignment.center,
+              child: Text(
+                '最终解释权归平台所有',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color.fromRGBO(113, 53, 16, 0.3)
+                ),
+              )
             )
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
