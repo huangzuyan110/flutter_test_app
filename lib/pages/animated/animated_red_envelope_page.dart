@@ -396,7 +396,7 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
   // 活动说明
   Widget _activityTipsWidget() {
     return Shimmer.fromColors(
-      baseColor: Colors.grey,
+      baseColor: Color(0xFF713510),
       highlightColor: Colors.red,
       child: Container(
         padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
