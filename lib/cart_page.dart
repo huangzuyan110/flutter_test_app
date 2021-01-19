@@ -101,7 +101,35 @@ class _CartPageState extends State<CartPage> {
                     child: Text('$index'),
                     foregroundColor: Colors.white,
                   ),
-                  title: Text('${list[index]['content']}'),
+                  // title: Text('${list[index]['content']}'),
+                  title: Builder(
+                    builder: (builderContext) {
+                      if(index==0 || index==2){
+                        WidgetsBinding.instance.addPostFrameCallback((_){
+                          try{
+                            final RenderBox renderContainer = builderContext.findRenderObject();
+                            // Size size = renderContainer.paintBounds.size;
+                            var vector3 = renderContainer.getTransformTo(null)?.getTranslation();
+                            final double dx = vector3[0];
+                            final double dy = vector3[1];
+                            // print('renderContainer====$renderContainer');
+                            print('vector3===$vector3');
+                            print('dx===$dx, dy====$dy');
+                          }catch(err){
+                            print('err===$err');
+                          }
+
+                        });
+                      }
+
+                      return Container(
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        child: Text('${list[index]['content']}'),
+                      );
+                    }
+                  ),
                   subtitle: Text('SlidableDrawerDelegate'),
                 ),
               ),
