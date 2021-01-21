@@ -51,138 +51,136 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
+      backgroundColor: Color(0xf2f2f2f2),
       appBarTitle: '购物车',
       child: Stack(
         children: [
-          Container(
-            color: Color(0xf2f2f2f2),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                return Slidable(
-                  key: Key(index.toString()),
-                  controller: slidableController,
-                  actionPane: SlidableScrollActionPane(), // 侧滑菜单出现方式 SlidableScrollActionPane SlidableDrawerActionPane SlidableStrechActionPane
-                  actionExtentRatio: 0.20, // 侧滑按钮所占的宽度
-                  enabled: true, // 是否启用侧滑 默认启用
-                  dismissal: SlidableDismissal(
-                    child: SlidableDrawerDismissal(),
-                    onDismissed: (actionType) {
-                      _showSnack(
-                          context,
-                          actionType == SlideActionType.primary
-                              ? 'Dismiss Archive'
-                              : 'Dimiss Delete');
-                      setState(() {
-                        list.removeAt(index);
-                      });
-                    },
-                    
-                    onWillDismiss: (actionType) {
-                      return showDialog<bool>(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Delete'),
-                            content: Text('Item will be deleted'),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Cancel'),
-                                onPressed: () => Navigator.of(context).pop(false),
-                              ),
-                              FlatButton(
-                                child: Text('Ok'),
-                                onPressed: () => Navigator.of(context).pop(true),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+          ListView.builder(
+            itemCount: list.length,
+            padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+            itemBuilder: (context, index) {
+              return Slidable(
+                key: Key(index.toString()),
+                controller: slidableController,
+                actionPane: SlidableScrollActionPane(), // 侧滑菜单出现方式 SlidableScrollActionPane SlidableDrawerActionPane SlidableStrechActionPane
+                actionExtentRatio: 0.20, // 侧滑按钮所占的宽度
+                enabled: true, // 是否启用侧滑 默认启用
+                dismissal: SlidableDismissal(
+                  child: SlidableDrawerDismissal(),
+                  onDismissed: (actionType) {
+                    _showSnack(
+                        context,
+                        actionType == SlideActionType.primary
+                            ? 'Dismiss Archive'
+                            : 'Dimiss Delete');
+                    setState(() {
+                      list.removeAt(index);
+                    });
+                  },
                   
-                  ),
-                  child: Container(
-                    color: Colors.white,
-                    child: ListTile(
-                      leading: Builder(
-                        builder: (builderContext) {
-                          if(isShowSortGuide && !hasRelocate && index==2){
-                            WidgetsBinding.instance.addPostFrameCallback((_){
-                            
-                              try{
-                                final RenderBox renderContainer = builderContext.findRenderObject();
-                                // Size size = renderContainer.paintBounds.size;
-                                var vector3 = renderContainer.getTransformTo(null)?.getTranslation();
-                                final double dx = vector3[0];
-                                final double dy = vector3[1];
+                  onWillDismiss: (actionType) {
+                    return showDialog<bool>(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Delete'),
+                          content: Text('Item will be deleted'),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Cancel'),
+                              onPressed: () => Navigator.of(context).pop(false),
+                            ),
+                            FlatButton(
+                              child: Text('Ok'),
+                              onPressed: () => Navigator.of(context).pop(true),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                
+                ),
+                child: Container(
+                  color: Colors.white,
+                  child: ListTile(
+                    leading: Builder(
+                      builder: (builderContext) {
+                        if(isShowSortGuide && !hasRelocate && index==2){
+                          WidgetsBinding.instance.addPostFrameCallback((_){
+                          
+                            try{
+                              final RenderBox renderContainer = builderContext.findRenderObject();
+                              // Size size = renderContainer.paintBounds.size;
+                              var vector3 = renderContainer.getTransformTo(null)?.getTranslation();
+                              final double dx = vector3[0];
+                              final double dy = vector3[1];
 
-                                setState(() {
-                                  positionLeft = dx;
-                                  positionTop = dy - (kToolbarHeight + paddingTop + stackHeight);
-                                  hasRelocate = true;
-                                });
+                              setState(() {
+                                positionLeft = dx;
+                                positionTop = dy + renderContainer.size.height - (kToolbarHeight + paddingTop + stackHeight);
+                                hasRelocate = true;
+                              });
 
-                                // print('renderContainer====$renderContainer');
-                                // print('vector3===$vector3');
-                                print('dx===$dx, dy====$dy');
-                              }catch(err){
-                                print('err===$err');
-                              }
-                            });
-                          }
-
-                          return CircleAvatar(
-                            backgroundColor: Colors.indigoAccent,
-                            child: Text('$index'),
-                            foregroundColor: Colors.white,
-                          );
+                              // print('renderContainer====$renderContainer');
+                              // print('vector3===$vector3');
+                              print('dx===$dx, dy====$dy');
+                            }catch(err){
+                              print('err===$err');
+                            }
+                          });
                         }
-                      ),
-                      // title: Text('${list[index]['content']}'),
-                      title: Container(
-                        width: 20,
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        child: Text('${list[index]['content']}'),
-                      ),
-                      subtitle: Text('SlidableDrawerDelegate'),
+
+                        return CircleAvatar(
+                          backgroundColor: Colors.indigoAccent,
+                          child: Text('$index'),
+                          foregroundColor: Colors.white,
+                        );
+                      }
                     ),
+                    // title: Text('${list[index]['content']}'),
+                    title: Container(
+                      width: 20,
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      child: Text('${list[index]['content']}'),
+                    ),
+                    subtitle: Text('SlidableDrawerDelegate'),
                   ),
-                  // actions: <Widget>[
-                  //   IconSlideAction(
-                  //     caption: 'Archive',
-                  //     color: Colors.blue,
-                  //     icon: Icons.archive,
-                  //     onTap: () => print('2222'),
-                  //     closeOnTap: false,
-                  //   ),
-                  //   IconSlideAction(
-                  //     caption: 'Share',
-                  //     color: Colors.indigo,
-                  //     icon: Icons.share,
-                  //     onTap: () => _showSnackBar('Share', index),
-                  //   ),
-                  // ],
-                  
-                  secondaryActions: <Widget>[
-                    IconSlideAction(
-                      caption: 'More',
-                      color: Colors.black45,
-                      icon: Icons.more_horiz,
-                      onTap: () => _showSnackBar('More', index),
-                    ),
-                    IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      closeOnTap: true,
-                      onTap: () => _showSnackBar('Delete', index),
-                    ),
-                  ],
-                  
-                );
-              },
-            ),
+                ),
+                // actions: <Widget>[
+                //   IconSlideAction(
+                //     caption: 'Archive',
+                //     color: Colors.blue,
+                //     icon: Icons.archive,
+                //     onTap: () => print('2222'),
+                //     closeOnTap: false,
+                //   ),
+                //   IconSlideAction(
+                //     caption: 'Share',
+                //     color: Colors.indigo,
+                //     icon: Icons.share,
+                //     onTap: () => _showSnackBar('Share', index),
+                //   ),
+                // ],
+                
+                secondaryActions: <Widget>[
+                  IconSlideAction(
+                    caption: 'More',
+                    color: Colors.black45,
+                    icon: Icons.more_horiz,
+                    onTap: () => _showSnackBar('More', index),
+                  ),
+                  IconSlideAction(
+                    caption: 'Delete',
+                    color: Colors.red,
+                    icon: Icons.delete,
+                    closeOnTap: true,
+                    onTap: () => _showSnackBar('Delete', index),
+                  ),
+                ],
+                
+              );
+            },
           ),
           _stackGuideWidget()
         

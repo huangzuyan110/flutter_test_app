@@ -49,12 +49,9 @@ class _BlaLifeHallWidgetState extends State<BlaLifeHallWidget> with TickerProvid
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double width = MediaQuery.of(context).size.width - (POSITION_LEFT + POSITION_RIGHT);
-
-      AnimationController controller = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
-
-      fadeController = controller;
-      waveController = controller;
-      fallController = controller;
+      fadeController =  AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+      waveController =  AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+      fallController =  AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
       
       fadeAnimation =  Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: fadeController, curve: curve));
       waveAnimation = new Tween(begin:0.0, end: width).animate(CurvedAnimation(parent: waveController, curve: curve))..addListener((){
@@ -170,9 +167,9 @@ class _BlaLifeHallWidgetState extends State<BlaLifeHallWidget> with TickerProvid
 
   @override
   void dispose() {
-    // fadeController.dispose();
-    // waveController.dispose();
-    // fallController.dispose();
+    fadeController.dispose();
+    waveController.dispose();
+    fallController.dispose();
     super.dispose();
   }
 
