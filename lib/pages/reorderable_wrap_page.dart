@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test_app/common/scaffold_page.dart';
 import 'package:flutter_test_app/util/widget_utils.dart';
 import 'package:reorderables/reorderables.dart';
-
 class ReorderableWrapPage extends StatefulWidget {
   ReorderableWrapPage({Key key}) : super(key: key);
 
