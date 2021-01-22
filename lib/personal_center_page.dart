@@ -15,6 +15,8 @@ import 'package:flutter_test_app/pages/input_number_page.dart';
 import 'package:flutter_test_app/pages/logistics_information_page.dart';
 import 'package:flutter_test_app/pages/multiple_click_page.dart';
 import 'package:flutter_test_app/pages/paint/paint_page.dart';
+import 'package:flutter_test_app/pages/reorderable_list_page.dart';
+import 'package:flutter_test_app/pages/reorderable_wrap_page.dart';
 import 'package:flutter_test_app/pages/thumb_page.dart';
 import 'common/scaffold_page.dart';
 import 'pages/animated/animation_page.dart';
@@ -207,6 +209,20 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                   },
                   color: Colors.red,
                   child: Text('跳转到开红包动画'),
+                ),
+              ), 
+              // 跳转拖拽列表重新排序
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ReorderableListPage())),
+                  child: Text('跳转拖拽列表重新排序'),
+                ),
+              ),
+              // 跳转拖拽网格图移动
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ReorderableWrapPage())),
+                  child: Text('跳转拖拽网格图移动'),
                 ),
               ),
             ],

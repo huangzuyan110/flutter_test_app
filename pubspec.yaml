@@ -36,6 +36,7 @@ dependencies:
   smooth_star_rating: 1.1.1
   shimmer: ^1.1.2
   shared_preferences: ^0.5.3+4
+  reorderables: 0.3.2
 
 dev_dependencies:
   flutter_test:
