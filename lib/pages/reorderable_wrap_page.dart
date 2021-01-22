@@ -16,68 +16,20 @@ class ReorderableWrapPage extends StatefulWidget {
 }
 
 class _ReorderableWrapPageState extends State<ReorderableWrapPage> {
-  final double _iconSize = 90;
-  List _tiles = [];
+  final double _fontSize = 50, _spacing = 8.0, _padding = 12.0;
+  int _minMainAxisCount = 3;
+  List _tiles = [1, 2, 3, 4, 5, 6, 7, 8];
 
   @override
   void initState() { 
     super.initState();
-    _tiles = <Widget>[
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_1, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_2, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_3, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_4, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_5, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_6, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_7, size: _iconSize)
-      ),
-      Container(
-        width: ScreenUtil().setWidth(220),
-        height: ScreenUtil().setWidth(220),
-        color: Colors.white,
-        child: Icon(Icons.filter_8, size: _iconSize)
-      ),
-    ];
   }
 
   // 移动排序
   void _onReorder(int oldIndex, int newIndex) {
+    print('oldIndex===$oldIndex, newIndex===$newIndex');
     setState(() {
-      Widget row = _tiles.removeAt(oldIndex);
+      dynamic row = _tiles.removeAt(oldIndex);
       _tiles.insert(newIndex, row);
     });
   }
@@ -94,15 +46,15 @@ class _ReorderableWrapPageState extends State<ReorderableWrapPage> {
             children: <Widget>[
               ReorderableWrap(
                 // 纵轴间距
-                spacing: ScreenUtil().setWidth(20),
+                spacing: _spacing,
                 // 主轴间距
                 runSpacing: 10.0,
-                padding: const EdgeInsets.all(12),
-                children: _tiles,
+                padding: EdgeInsets.all(_padding),
+                children: _buildItemWidget(),
                 onReorder: _onReorder,
                 // 纵轴对齐方式
                 alignment: WrapAlignment.end,
-                minMainAxisCount: 3,
+                minMainAxisCount: _minMainAxisCount,
                 onNoReorder: (int index) {
                   //this callback is optional
                   debugPrint('${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
@@ -126,14 +78,8 @@ class _ReorderableWrapPageState extends State<ReorderableWrapPage> {
                     color: Colors.deepOrange,
                     padding: const EdgeInsets.all(0.0),
                     onPressed: () {
-                      var newTile = Container(
-                        width: ScreenUtil().setWidth(220),
-                        height: ScreenUtil().setWidth(220),
-                        color: Colors.white,
-                        child: Icon(Icons.filter_9_plus, size: _iconSize)
-                      );
                       setState(() {
-                        _tiles.add(newTile);
+                        _tiles.add('9+');
                       });
                     },
                   ),
@@ -155,5 +101,22 @@ class _ReorderableWrapPageState extends State<ReorderableWrapPage> {
         ),
       )
     );
+  }
+
+  List<Widget> _buildItemWidget(){
+    List<Widget> _temp = [];
+    double boxWH = (MediaQuery.of(context).size.width - (_padding*2 + _spacing*(_minMainAxisCount-1))) / _minMainAxisCount;
+    _tiles.forEach((element) {
+      _temp.add(
+        Container(
+          width: boxWH,
+          height: boxWH,
+          color: Colors.white,
+          alignment: Alignment.center,
+          child: getTextWidget(_fontSize, '$element')
+        )
+      );
+    });
+    return _temp;
   }
 }
