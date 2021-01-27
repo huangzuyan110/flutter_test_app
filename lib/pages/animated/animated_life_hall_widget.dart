@@ -230,6 +230,9 @@ class _BlaLifeHallWidgetState extends State<BlaLifeHallWidget> with TickerProvid
                   GestureDetector(
                     onTap: (){
                       // handleCloseDialog();
+                      setState(() {
+                        isShowDialog = false;
+                      });
                     },
                     child: Image.asset('assets/images/bLa_life_hall_icon2.png', width: 17, height: 17,),
                   )

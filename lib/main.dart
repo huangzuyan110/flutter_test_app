@@ -79,12 +79,12 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         onTap: _onItemTap,
         currentIndex: _selected,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-          BottomNavigationBarItem(icon: Icon(Icons.shop), title: Text('产品')),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+          BottomNavigationBarItem(icon: Icon(Icons.shop), label: '产品'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), title: Text('购物车')),
+              icon: Icon(Icons.shopping_cart), label: '购物车'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.supervised_user_circle), title: Text('我的')),
+              icon: Icon(Icons.supervised_user_circle), label: '我的'),
         ],
       )
     );

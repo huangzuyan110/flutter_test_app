@@ -172,6 +172,7 @@ class _AnimationPageState extends State<AnimationPage> with TickerProviderStateM
                 children: <Widget>[
                   Text('缩放动画：'),
                   Container(
+                    height: 180,
                     child:Row(
                       children: <Widget>[
                         Container(

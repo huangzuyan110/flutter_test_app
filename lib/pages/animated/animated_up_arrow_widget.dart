@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-18 14:26:25
- * @LastEditTime: 2021-01-04 14:08:57
+ * @LastEditTime: 2021-01-27 14:19:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /flutter_test_app/lib/pages/animated/animated_up_arrow_widget.dart
@@ -41,6 +41,7 @@ class _AnimatedUpArrowWidgetState extends State<AnimatedUpArrowWidget> with Tick
   @override
   void dispose() {
     // TODO: implement dispose
+    _animationController?.dispose();
     super.dispose();
   }
 

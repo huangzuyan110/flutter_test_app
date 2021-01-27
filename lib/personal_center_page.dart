@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/pages/animated/animated_background_page.dart';
 import 'package:flutter_test_app/pages/animated/animated_card_flip_page.dart';
+import 'package:flutter_test_app/pages/animated/animated_invitation_letter_page.dart';
 import 'package:flutter_test_app/pages/animated/red_envelope_page.dart';
 import 'package:flutter_test_app/pages/auto_height_stepper_page.dart';
 import 'package:flutter_test_app/pages/auto_width_stepper_page.dart';
@@ -223,6 +224,13 @@ class _PersonalCenterPageState extends State<PersonalCenterPage> {
                 child: OutlineButton(
                   onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ReorderableWrapPage())),
                   child: Text('跳转拖拽网格图移动'),
+                ),
+              ),
+              // 跳转到邀请函动画
+              Container(
+                child: OutlineButton(
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AnimatedInvitationLetterPage())),
+                  child: Text('跳转到邀请函动画'),
                 ),
               ),
             ],
