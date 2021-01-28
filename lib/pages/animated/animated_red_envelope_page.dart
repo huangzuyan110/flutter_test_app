@@ -57,10 +57,10 @@ class _AnimatedRedEnvelopePageState extends State<AnimatedRedEnvelopePage> with 
     slideController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          //AnimationStatus.completed 动画在结束时停止的状态
+          //动画从 controller.forward() 正向执行 结束时会回调此方法
           slideController?.reverse();
         } else if (status == AnimationStatus.dismissed) {
-          //AnimationStatus.dismissed 表示动画在开始时就停止的状态
+          //动画从 controller.reverse() 反向执行 结束时会回调此方法
           slideController.forward();
         }
       });
