@@ -20,8 +20,8 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
   //动画控制器 _doorController: 开门动画 _arrowAnimation:信封箭头
   AnimationController _doorController, _letterController, _openLetterController, _arrowController;
   Animation _doorAnimation, _letterAnimation, _openLetterAnimation, _arrowAnimation;
-  // 是否点击了打开红包
-  bool isClickOpen = false;
+  // isClickOpenLetter:是否点击了打开信封  _isShowLetterUpLayer:是否显示信封上层
+  bool isClickOpenLetter = false, _isShowLetterUpLayer = true;
 
   // 开门动画时长，信封停留时长
   int _doorAnimationTime = 1000, _letterStopTime = 3000;
@@ -52,14 +52,14 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
           // 信封停留_letterStopTime秒后重新开始所有的动画
           Future.delayed(Duration(milliseconds: _letterStopTime), (){
             // 注意，当页面设置了延时去执行动画时，那么要先判断当前页面是否已挂载，如果页面已卸载，不再执行动画
-            if(mounted){
+            if(mounted && !isClickOpenLetter){
               _doorController?.reset();
               _letterController?.reset();
               _arrowController?.reset();
             }
 
             Future.delayed(Duration(milliseconds: 500), (){
-              if(mounted) _doorController?.forward();
+              if(mounted && !isClickOpenLetter) _doorController?.forward();
             });
           });
         }
@@ -68,9 +68,14 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
     _openLetterController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this)..addListener(() {
       setState(() {});
     })..addStatusListener((status) {
+      if(status==AnimationStatus.completed){
+        setState(() {
+          _isShowLetterUpLayer = false;
+        });
+      }
     });
 
-    _arrowController = AnimationController(duration: const Duration(milliseconds: 500), vsync: this)..addStatusListener((status) {
+    _arrowController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this)..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         //动画从 controller.forward() 正向执行 结束时会回调此方法]
         //将动画重置到开始前的状态
@@ -100,20 +105,21 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
 
     _letterAnimation = Tween(
       begin: Offset(0.0, 0.0),
-      end: Offset(270.0, 186.0),
+      end: Offset(271.0, 186.0),
     ).animate(
       _letterController,
     );
     
     _openLetterAnimation = Tween(
-      begin: 0.0,
+      begin: Offset(0.0, 0.0),
       /// 向里打开
-      end: -math.pi/2,
+      end: Offset(-math.pi/1.2, 280.8),
     ).animate(
-      _openLetterController,
+      // 动画先快后慢
+      CurvedAnimation(parent: _openLetterController, curve: Curves.bounceInOut),
     );
 
-    _arrowAnimation = Tween(begin: Offset(0.0, 0.0), end: Offset(0.0, 1.0)).animate(_arrowController)..addListener(() { 
+    _arrowAnimation = Tween(begin: Offset(0.0, 0.0), end: Offset(0.0, 1.0)).animate(_arrowController)..addListener(() {
       setState(() {});
     });
 
@@ -128,6 +134,14 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
     _arrowController?.dispose();
     _openLetterController?.dispose();
     super.dispose();
+  }
+
+  /* 触发开信封 */
+  void _handleOpenLetter(){
+    setState(() {
+      isClickOpenLetter = true;
+    });
+    _openLetterController.forward();
   }
 
   @override
@@ -148,8 +162,6 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
             _leftDoorWidget(),
             _rightDoorWidget(),
 
-            _letterWidget(),
-
             // 最外层边框
             Container(
               width: MediaQuery.of(context).size.width,
@@ -162,6 +174,21 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
                 )
               ),
             ),
+            
+            // 里面的信纸
+            Visibility(
+              visible: isClickOpenLetter,
+              child: Align(
+                alignment: Alignment(0.0, 0.0),
+                child: Container(
+                  width: 241,
+                  height: _openLetterAnimation.value.dy,
+                  child: Image.asset('assets/images/invite_letter_inner.png', fit: BoxFit.cover,)
+                ),
+              ),
+            ),
+
+            _letterWidget(),
 
             //返回按钮
             Positioned(
@@ -247,9 +274,9 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
       ),
       child: Stack(
         children: [
-          // 红包上层
+          // 信封上层
           Visibility(
-            visible: true,
+            visible: _isShowLetterUpLayer,
             child: Align(
               alignment: Alignment.topCenter,
               child: Transform(
@@ -257,7 +284,7 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
                 alignment: Alignment.topCenter,
                 transform: Matrix4.identity()
                   ..setEntry(3, 2, 0.002)
-                  ..rotateX(_openLetterAnimation.value),
+                  ..rotateX(_openLetterAnimation.value.dx),
                 child: Container(
                   height: 168,
                   child: Image.asset('assets/images/invite_letter_up.png', fit: BoxFit.cover,)
@@ -267,7 +294,7 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
           ),
           // 指引开信封动画
           Visibility(
-            visible: !isClickOpen,
+            visible: !isClickOpenLetter,
             child: Align(
               alignment: Alignment(0.0, -0.05),
               child: SlideTransition(
@@ -282,13 +309,16 @@ class _AnimatedInvitationLetterPageState extends State<AnimatedInvitationLetterP
           ),
           // 开信封图片
           Visibility(
-            visible: !isClickOpen,
-            child: Align(
-              alignment: Alignment(0.0, 1.0),
-              child: Container(
-                width: 89,
-                height: 87,
-                child: Image.asset('assets/images/invite_letter_btn.png', fit: BoxFit.cover,)
+            visible: !isClickOpenLetter,
+            child: GestureDetector(
+              onTap: _handleOpenLetter,
+              child: Align(
+                alignment: Alignment(0.0, 1.0),
+                child:Container(
+                  width: 89,
+                  height: 87,
+                  child: Image.asset('assets/images/invite_letter_btn.png', fit: BoxFit.cover,)
+                ),
               ),
             ),
           ),
